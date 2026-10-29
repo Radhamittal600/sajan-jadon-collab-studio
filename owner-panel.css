@@ -459,3 +459,27 @@
   .owner-action { width:100%; box-sizing:border-box; }
   .owner-preview-content { padding:18px; }
 }
+
+/* FUTURISTIC SOCIAL ANALYTICS */
+[data-owner-section="social"] .owner-stat {
+  position: relative;
+  overflow: hidden;
+}
+[data-owner-section="social"] .owner-stat::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  right: -35px;
+  bottom: -45px;
+  border-radius: 50%;
+  background: color-mix(in srgb,var(--owner-accent) 16%,transparent);
+  filter: blur(4px);
+  pointer-events: none;
+}
+[data-owner-section="social"] .owner-card {
+  border-color: color-mix(in srgb,var(--owner-accent) 20%,transparent);
+}
+[data-owner-section="social"] .owner-preview-content h3 {
+  overflow-wrap: anywhere;
+}

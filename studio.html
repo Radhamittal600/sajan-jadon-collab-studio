@@ -27,6 +27,7 @@
     <button class="active" data-owner-tab="overview">✦ Overview</button>
     <button data-owner-tab="settings">🎨 Website Editor</button>
     <button data-owner-tab="portfolio">▧ Portfolio</button>
+<button data-owner-tab="social">📊 Social Analytics</button>
     <button data-owner-tab="enquiries">✉ Enquiries</button>
     <button data-owner-tab="security">🔐 Security</button>
   </nav>
@@ -130,6 +131,111 @@
       <div class="eyebrow">LIVE PORTFOLIO</div><h2>Published items</h2>
       <div id="adminGallery" class="admin-gallery">Loading…</div>
     </section>
+  </div>
+</section>
+
+
+<section class="owner-section" data-owner-section="social">
+  <div class="owner-heading">
+    <div>
+      <div class="owner-kicker">CREATOR ANALYTICS · SOCIAL CONTROL</div>
+      <h1>Social <span class="owner-gradient">Command Center.</span></h1>
+      <div class="owner-muted">Manage profile links and website display statistics.</div>
+    </div>
+  </div>
+
+  <div class="owner-notice">
+    Manual numbers are website display values, not verified live Instagram analytics.
+    Real Instagram insights require authorized API access.
+  </div>
+
+  <div class="owner-stats">
+    <article class="owner-stat">
+      <div class="owner-stat-icon">◎</div>
+      <div class="owner-stat-label">Displayed Followers</div>
+      <div class="owner-stat-value" id="socialFollowersCard">0</div>
+    </article>
+    <article class="owner-stat">
+      <div class="owner-stat-icon">▶</div>
+      <div class="owner-stat-label">Displayed Reel Views</div>
+      <div class="owner-stat-value" id="socialViewsCard">0</div>
+    </article>
+    <article class="owner-stat">
+      <div class="owner-stat-icon">↗</div>
+      <div class="owner-stat-label">Statistics Mode</div>
+      <div class="owner-stat-value" id="socialModeCard" style="font-size:18px">MANUAL</div>
+    </article>
+  </div>
+
+  <div class="owner-card">
+    <h2>Instagram & Social Profiles</h2>
+    <form id="socialSettingsForm">
+      <div class="owner-form-grid">
+        <label>Instagram Username
+          <input id="socialUsername" maxlength="60" placeholder="@yourusername">
+        </label>
+        <label>Instagram Profile URL
+          <input id="socialInstagramUrl" type="url" placeholder="https://www.instagram.com/yourusername/">
+        </label>
+        <label>YouTube Channel URL
+          <input id="socialYoutubeUrl" type="url" placeholder="https://www.youtube.com/@yourchannel">
+        </label>
+        <label>Other Social Profile URL
+          <input id="socialOtherUrl" type="url" placeholder="https://...">
+        </label>
+      </div>
+      <div class="owner-actions">
+        <button class="owner-action primary" type="submit">Save Social Links</button>
+        <a class="owner-action" id="socialInstagramPreview" href="https://www.instagram.com/" target="_blank" rel="noopener">Open Instagram ↗</a>
+      </div>
+      <p id="socialLinksStatus" class="owner-feedback" role="status"></p>
+    </form>
+  </div>
+
+  <div class="owner-card">
+    <h2>Website Statistics Editor</h2>
+    <p class="owner-muted">Set the numbers you want displayed on your website. These are manual display values.</p>
+    <form id="socialStatsForm">
+      <div class="owner-form-grid">
+        <label>Followers
+          <input id="socialFollowers" type="number" min="0" max="999999999" step="1" value="0">
+        </label>
+        <label>Reels Views
+          <input id="socialViews" type="number" min="0" max="999999999999" step="1" value="0">
+        </label>
+        <label>Posts
+          <input id="socialPosts" type="number" min="0" max="999999999" step="1" value="0">
+        </label>
+        <label>Display Label
+          <select id="socialStatsLabel">
+            <option value="manual">Manually Updated</option>
+            <option value="sample">Sample Statistics</option>
+          </select>
+        </label>
+        <label class="owner-span-2">Last Updated Note
+          <input id="socialStatsNote" maxlength="120" placeholder="Updated by owner">
+        </label>
+      </div>
+      <div class="owner-actions">
+        <button class="owner-action primary" type="submit">💾 Save Statistics</button>
+        <button class="owner-action" type="button" id="socialStatsReset">Reset Statistics</button>
+      </div>
+      <p id="socialStatsStatus" class="owner-feedback" role="status"></p>
+    </form>
+  </div>
+
+  <div class="owner-card">
+    <h2>Public Stats Preview</h2>
+    <div class="owner-preview">
+      <div class="owner-preview-bar"><i></i><i></i><i></i><span>CREATOR PROFILE</span></div>
+      <div class="owner-preview-content">
+        <div id="socialPreviewUsername" class="owner-preview-brand">@yourusername</div>
+        <h3><span id="socialPreviewFollowers">0</span> Followers</h3>
+        <p><strong id="socialPreviewViews">0</strong> Reel Views · <strong id="socialPreviewPosts">0</strong> Posts</p>
+        <span id="socialPreviewLabel" class="owner-preview-button">Manually Updated</span>
+      </div>
+    </div>
+    <p class="owner-muted">This preview is separate from your public homepage until you connect the public website to shared settings storage.</p>
   </div>
 </section>
 

@@ -148,3 +148,114 @@
   window.addEventListener('pageshow', updateCounts);
   setTimeout(updateCounts, 1200);
 })();
+
+// SOCIAL CONTROL CENTER: manual display stats and profile links
+(() => {
+  const $ = id => document.getElementById(id);
+  const KEY = 'sajanJadonSocialControlV1';
+  const fields = [
+    'socialUsername','socialInstagramUrl','socialYoutubeUrl','socialOtherUrl',
+    'socialFollowers','socialViews','socialPosts','socialStatsLabel','socialStatsNote'
+  ];
+  const defaults = {
+    socialUsername:'', socialInstagramUrl:'', socialYoutubeUrl:'', socialOtherUrl:'',
+    socialFollowers:'0', socialViews:'0', socialPosts:'0',
+    socialStatsLabel:'manual', socialStatsNote:'Updated by owner'
+  };
+
+  const validUrl = value => {
+    if (!value) return true;
+    try {
+      const u = new URL(value);
+      return u.protocol === 'https:';
+    } catch { return false; }
+  };
+
+  const values = () => Object.fromEntries(
+    fields.map(id => [id, $(id)?.value ?? defaults[id]])
+  );
+
+  function paint(data) {
+    if ($('socialPreviewUsername')) {
+      $('socialPreviewUsername').textContent =
+        data.socialUsername ? (data.socialUsername.startsWith('@') ? data.socialUsername : '@' + data.socialUsername) : '@yourusername';
+    }
+    if ($('socialPreviewFollowers')) $('socialPreviewFollowers').textContent = Number(data.socialFollowers || 0).toLocaleString();
+    if ($('socialPreviewViews')) $('socialPreviewViews').textContent = Number(data.socialViews || 0).toLocaleString();
+    if ($('socialPreviewPosts')) $('socialPreviewPosts').textContent = Number(data.socialPosts || 0).toLocaleString();
+    if ($('socialPreviewLabel')) $('socialPreviewLabel').textContent =
+      data.socialStatsLabel === 'sample' ? 'Sample Statistics' : 'Manually Updated';
+
+    if ($('socialFollowersCard')) $('socialFollowersCard').textContent = Number(data.socialFollowers || 0).toLocaleString();
+    if ($('socialViewsCard')) $('socialViewsCard').textContent = Number(data.socialViews || 0).toLocaleString();
+
+    const url = validUrl(data.socialInstagramUrl) && data.socialInstagramUrl
+      ? data.socialInstagramUrl : 'https://www.instagram.com/';
+    if ($('socialInstagramPreview')) $('socialInstagramPreview').href = url;
+  }
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    const data = {...defaults, ...saved};
+    fields.forEach(id => { if ($(id)) $(id).value = data[id] ?? defaults[id]; });
+    paint(data);
+  } catch {
+    paint(defaults);
+  }
+
+  $('socialSettingsForm')?.addEventListener('submit', e => {
+    e.preventDefault();
+    const data = values();
+
+    for (const id of ['socialInstagramUrl','socialYoutubeUrl','socialOtherUrl']) {
+      if (!validUrl(data[id])) {
+        $('socialLinksStatus').textContent = 'Please enter a valid HTTPS profile URL.';
+        return;
+      }
+    }
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      paint(data);
+      $('socialLinksStatus').textContent =
+        'Social links saved in this browser. Public website-wide sync needs shared settings storage.';
+    } catch {
+      $('socialLinksStatus').textContent = 'Could not save links in this browser.';
+    }
+  });
+
+  $('socialStatsForm')?.addEventListener('submit', e => {
+    e.preventDefault();
+    const data = values();
+    for (const id of ['socialFollowers','socialViews','socialPosts']) {
+      const n = Number(data[id]);
+      if (!Number.isSafeInteger(n) || n < 0) {
+        $('socialStatsStatus').textContent = 'Enter a valid non-negative whole number.';
+        return;
+      }
+    }
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      paint(data);
+      $('socialStatsStatus').textContent =
+        'Statistics saved locally. They are manual display values, not verified live Instagram analytics.';
+    } catch {
+      $('socialStatsStatus').textContent = 'Could not save statistics in this browser.';
+    }
+  });
+
+  fields.forEach(id => $(id)?.addEventListener('input', () => paint(values())));
+  fields.forEach(id => $(id)?.addEventListener('change', () => paint(values())));
+
+  $('socialStatsReset')?.addEventListener('click', () => {
+    if (!confirm('Reset follower and view display values to zero?')) return;
+    const current = values();
+    current.socialFollowers = '0';
+    current.socialViews = '0';
+    current.socialPosts = '0';
+    fields.forEach(id => { if ($(id)) $(id).value = current[id] ?? defaults[id]; });
+    paint(current);
+    try { localStorage.setItem(KEY, JSON.stringify(current)); } catch {}
+    if ($('socialStatsStatus')) $('socialStatsStatus').textContent = 'Statistics reset to zero.';
+  });
+})();
