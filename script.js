@@ -102,7 +102,7 @@ document.querySelectorAll('.social-stat-card').forEach(card => statObserver.obse
 /* V7 cinematic intro + lightweight scroll-reactive particle field */
 (()=>{
  const loader=document.getElementById('introLoader');
- const hideLoader=()=>{if(loader)loader.classList.add('done')};
+ const hideLoader=()=>{if(loader)loader.classList.add('done');document.body.classList.add('page-ready')};
  window.addEventListener('load',()=>setTimeout(hideLoader,950),{once:true});
  setTimeout(hideLoader,2200);
  const canvas=document.getElementById('cinematicCanvas'),ctx=canvas&&canvas.getContext('2d');
@@ -140,4 +140,79 @@ document.querySelectorAll('.social-stat-card').forEach(card => statObserver.obse
  window.addEventListener('resize',()=>{resize();requestDraw()},{passive:true});
  window.addEventListener('scroll',requestDraw,{passive:true});
  resize();draw();
+})();
+
+if('scrollRestoration' in history) history.scrollRestoration='manual'; window.addEventListener('pageshow',()=>{if(!location.hash) window.scrollTo(0,0)});
+
+/* V9: scroll camera, bento tilt, horizontal rail, mask reveal, procedural 3D particles */
+(()=>{
+ const rail=document.getElementById('cinemaRail'),railProgress=document.getElementById('railProgress');
+ if(rail){
+  const panels=[...rail.querySelectorAll('.rail-panel')];
+  const updateRail=()=>{
+   const max=Math.max(1,rail.scrollWidth-rail.clientWidth);
+   if(railProgress)railProgress.style.width=(rail.scrollLeft/max*100)+'%';
+   const center=rail.getBoundingClientRect().left+rail.clientWidth/2;
+   panels.forEach(p=>{const r=p.getBoundingClientRect();p.classList.toggle('is-active',Math.abs((r.left+r.width/2)-center)<r.width*.62)});
+  };
+  rail.addEventListener('scroll',updateRail,{passive:true});window.addEventListener('resize',updateRail,{passive:true});updateRail();
+  // Vertical page scroll drives the horizontal story rail, while native horizontal swipe remains available.
+  let lastY=window.scrollY;
+  window.addEventListener('wheel',e=>{
+   if(Math.abs(e.deltaY)<Math.abs(e.deltaX)*1.2)return;
+   const r=rail.getBoundingClientRect();
+   if(r.top<window.innerHeight*.72&&r.bottom>window.innerHeight*.25&&Math.abs(e.deltaY)>0){
+    rail.scrollLeft+=e.deltaY*.72;updateRail();
+   }
+   lastY=window.scrollY;
+  },{passive:true});
+ }
+ const revealNodes=document.querySelectorAll('.section-head h2,.cinema-rail-head h2,.about h2,.collab-panel h2,.photo-card,.social-stat-card');
+ revealNodes.forEach(n=>n.setAttribute('data-mask-reveal',''));
+ const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('mask-shown');io.unobserve(e.target)}}),{threshold:.15});
+ revealNodes.forEach(n=>io.observe(n));
+ // Pointer tilt on cards (no hover dependency for touch devices).
+ document.querySelectorAll('.photo-card,.social-stat-card,.rail-panel').forEach(card=>{
+  card.addEventListener('pointermove',e=>{
+   if(e.pointerType==='touch')return;
+   const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+   card.style.transform=`perspective(1100px) rotateY(${x*5}deg) rotateX(${-y*4}deg) translateY(-3px)`;
+  });
+  card.addEventListener('pointerleave',()=>{card.style.transform=''});
+ });
+ // Procedural particle morph: points move between a loose sphere and a spiral/text-like band as page scrolls.
+ const c=document.getElementById('ultraCanvas'),ctx=c&&c.getContext('2d');
+ if(!c||!ctx)return;
+ let w=0,h=0,dpr=1,pts=[],raf=0;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function resize(){
+  w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,1.5);
+  c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
+  const count=Math.min(130,Math.max(55,Math.floor(w*h/9500)));
+  pts=Array.from({length:count},(_,i)=>({a:Math.random()*Math.PI*2,b:Math.random()*Math.PI,r:40+Math.random()*Math.min(w,h)*.42,s:Math.random()*6.28,i}));
+ }
+ function frame(t){
+  raf=0;ctx.clearRect(0,0,w,h);
+  const maxScroll=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+  const p=scrollY/maxScroll;
+  const cx=w*(.5+Math.sin(p*5)*.12),cy=h*(.42+Math.cos(p*4)*.1);
+  for(const q of pts){
+   const morph=(Math.sin(p*Math.PI*5+q.s)+1)/2;
+   const angle=q.a+t*.00008*(q.i%2?1:-1)+p*2.4;
+   const sphereX=Math.cos(angle)*Math.sin(q.b)*q.r;
+   const sphereY=Math.cos(q.b)*q.r;
+   const bandX=(q.i%17-8)*10+Math.sin(q.s+t*.0007)*24;
+   const bandY=(q.i%9-4)*8;
+   const x=cx+sphereX*(1-morph)+bandX*morph;
+   const y=cy+sphereY*(1-morph)+bandY*morph;
+   const alpha=.08+.26*(.5+.5*Math.sin(t*.001+q.s));
+   ctx.beginPath();ctx.fillStyle=q.i%3===0?`rgba(100,235,255,${alpha})`:`rgba(178,137,255,${alpha})`;
+   ctx.shadowBlur=7;ctx.shadowColor=q.i%3===0?'#58e6f4':'#a879ff';ctx.arc(x,y, .55+(q.i%4)*.24,0,Math.PI*2);ctx.fill();
+  }
+  ctx.shadowBlur=0;
+  if(!reduced)raf=requestAnimationFrame(frame);
+ }
+ addEventListener('resize',()=>{resize();if(!raf)raf=requestAnimationFrame(frame)},{passive:true});
+ addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(frame)},{passive:true});
+ resize();frame(0);
 })();
