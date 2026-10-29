@@ -10,11 +10,15 @@
 </head>
 <body>
 <div class="cursor-glow" aria-hidden="true"></div>
+<div class="edge-energy edge-energy-left" aria-hidden="true"></div>
+<div class="edge-energy edge-energy-right" aria-hidden="true"></div>
+<div class="click-flash" id="clickFlash" aria-hidden="true"></div>
+<div class="effect-toast" id="effectToast" aria-live="polite">✦ EFFECT ACTIVATED</div>
 <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
 <div class="particles" aria-hidden="true"></div>
 <header class="topbar">
   <a class="brand" href="#home"><span class="brand-mark">SJ</span><span>SAJAN <b>JADON</b><small>COLLABORATION STUDIO</small></span></a>
-  <nav><a href="#work">Work</a><a href="#about">About</a><a href="#collab">Collaborate</a></nav>
+  <nav><a href="#work">Work</a><a href="#social-stats">Social Stats</a><a href="#about">About</a><a href="#collab">Collaborate</a></nav>
   <button class="mode-toggle" id="modeToggle" aria-label="Toggle light and dark mode"><span class="mode-icon">☼</span><span class="mode-label">LIGHT MODE</span><i></i></button>
   <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
 </header>
@@ -37,19 +41,41 @@
   <div class="scroll-cue"><span></span> SCROLL TO DISCOVER</div>
 </section>
 <section class="work section-wrap" id="work">
-  <div class="section-head reveal"><div><div class="eyebrow">01 / SELECTED MOMENTS</div><h2>SAJAN’S <span class="gradient-text">BEST.</span></h2></div><p>Real moments. Distinct energy.<br>Tap a photo to open the full-frame view.</p></div>
+  <div class="section-head reveal"><div><div class="eyebrow">01 / SELECTED MOMENTS</div><h2>SAJAN’S <span class="gradient-text">BEST.</span></h2></div><p>Real moments. Distinct energy.<br>Tap a photo for a cinematic shine effect.</p></div>
   <div class="gallery">
     <button class="photo-card card-wide reveal tilt" data-image="assets/sajan-1.png" aria-label="Open Sajan Jadon photo one"><img src="assets/sajan-1.png" alt="Sajan Jadon portrait" onerror="this.parentElement.classList.add('missing-photo')"><span class="card-index">01 / PORTRAIT</span><span class="card-caption"><b>THE PRESENCE</b><small>Personality in every frame</small></span><span class="card-arrow">↗</span><span class="shine"></span></button>
     <button class="photo-card card-tall reveal tilt" data-image="assets/sajan-2.jpg" aria-label="Open Sajan Jadon photo two"><img src="assets/sajan-2.jpg" alt="Sajan Jadon outdoors" onerror="this.parentElement.classList.add('missing-photo')"><span class="card-index">02 / OUTDOORS</span><span class="card-caption"><b>OUT OF OFFICE</b><small>Life beyond the lens</small></span><span class="card-arrow">↗</span><span class="shine"></span></button>
   </div>
   <div class="marquee" aria-hidden="true"><div>CREATE WITH PURPOSE <span>✦</span> MAKE EVERY FRAME COUNT <span>✦</span> CREATE WITH PURPOSE <span>✦</span> MAKE EVERY FRAME COUNT <span>✦</span></div></div>
 </section>
+
+<section class="social-stats section-wrap" id="social-stats">
+  <div class="section-head reveal"><div><div class="eyebrow">02 / SOCIAL PRESENCE</div><h2>THE <span class="gradient-text">NUMBERS.</span></h2></div><p>Follow the journey across social platforms.<br>Live counts appear when account data is connected.</p></div>
+  <div class="stats-grid">
+    <a class="social-stat-card instagram-stat reveal" href="https://www.instagram.com/sajan_jadon_vlogs/" target="_blank" rel="noopener">
+      <span class="stat-platform"><span class="platform-icon instagram-icon">◎</span> INSTAGRAM</span>
+      <strong class="stat-value" data-count="instagram">Connect for live count</strong>
+      <span class="stat-description">Followers</span>
+      <span class="stat-action">VIEW PROFILE <b>↗</b></span>
+      <span class="stat-glow"></span>
+    </a>
+    <a class="social-stat-card facebook-stat reveal" href="https://www.facebook.com/" target="_blank" rel="noopener">
+      <span class="stat-platform"><span class="platform-icon facebook-icon">f</span> FACEBOOK</span>
+      <strong class="stat-value" data-count="facebook">Connect for live count</strong>
+      <span class="stat-description">Page followers</span>
+      <span class="stat-action">OPEN FACEBOOK <b>↗</b></span>
+      <span class="stat-glow"></span>
+    </a>
+  </div>
+  <p class="stats-note">Live follower counts require an authorized account/API connection. No follower numbers are guessed or fabricated.</p>
+</section>
+
 <section class="about section-wrap" id="about">
   <div class="about-visual reveal"><div class="about-ring"></div><div class="about-glass"><span>THE CREATOR’S MINDSET</span><strong>STAY<br><em>REAL.</em><br>STAY<br>ICONIC.</strong><small>AUTHENTICITY IS THE EFFECT.</small></div><span class="about-float">✳</span></div>
-  <div class="about-copy reveal"><div class="eyebrow">02 / THE VISION</div><h2>NOT JUST A<br><span class="gradient-text">PROFILE.</span><br>A POINT OF VIEW.</h2><p>From everyday moments to standout stories, Sajan’s space is built around personality, connection and content that feels real.</p><div class="feature-list"><div><span>01</span><b>Creator-first storytelling</b><i>↗</i></div><div><span>02</span><b>Fresh brand collaborations</b><i>↗</i></div><div><span>03</span><b>Moments worth remembering</b><i>↗</i></div></div></div>
+  <div class="about-copy reveal"><div class="eyebrow">03 / THE VISION</div><h2>NOT JUST A<br><span class="gradient-text">PROFILE.</span><br>A POINT OF VIEW.</h2><p>From everyday moments to standout stories, Sajan’s space is built around personality, connection and content that feels real.</p><div class="feature-list"><div><span>01</span><b>Creator-first storytelling</b><i>↗</i></div><div><span>02</span><b>Fresh brand collaborations</b><i>↗</i></div><div><span>03</span><b>Moments worth remembering</b><i>↗</i></div></div></div>
 </section>
 <section class="collab section-wrap" id="collab">
-  <div class="collab-panel reveal"><div class="collab-orb"></div><div class="eyebrow">03 / LET’S MAKE SOMETHING</div><h2>YOUR BRAND.<br><span class="gradient-text">OUR NEXT FRAME.</span></h2><p>Have a collaboration idea? Let’s turn it into something people remember.</p><a class="button button-primary magnetic" href="https://www.instagram.com/sajan_jadon_vlogs/" target="_blank" rel="noopener">CONNECT ON INSTAGRAM <span>↗</span></a><span class="panel-watermark">SJ</span></div>
+  <div class="collab-panel reveal"><div class="collab-orb"></div><div class="eyebrow">04 / LET’S MAKE SOMETHING</div><h2>YOUR BRAND.<br><span class="gradient-text">OUR NEXT FRAME.</span></h2><p>Have a collaboration idea? Let’s turn it into something people remember.</p><a class="button button-primary magnetic" href="https://www.instagram.com/sajan_jadon_vlogs/" target="_blank" rel="noopener">CONNECT ON INSTAGRAM <span>↗</span></a><span class="panel-watermark">SJ</span></div>
 </section>
 </main>
 <footer class="footer section-wrap">
@@ -58,6 +84,6 @@
   <div class="creator-credit"><img src="assets/chetan.jpg" alt="Chetan creator credit photo" onerror="this.style.display='none'"><span><small>WEBSITE CREATED BY</small><b>CHETAN</b></span><span class="credit-star">✦</span></div>
   <div class="copyright">© 2026 SAJAN JADON STUDIO · BUILT WITH CREATIVE ENERGY</div>
 </footer>
-<div class="lightbox" id="lightbox" aria-hidden="true"><button class="lightbox-close" id="lightboxClose" aria-label="Close photo">×</button><img id="lightboxImage" alt="Expanded portfolio photo"><span class="lightbox-caption">SAJAN JADON · SELECTED MOMENT</span></div>
+
 <script src="script.js"></script>
 </body></html>
