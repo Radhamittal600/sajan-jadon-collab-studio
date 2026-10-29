@@ -476,3 +476,35 @@ html:not(.js-motion-ready) .reveal,html:not(.js-motion-ready) [data-reveal]{opac
 @media(max-width:760px){.hero-photo-stage{height:clamp(370px,108vw,520px)!important;min-height:370px!important;margin:24px auto 0!important;width:100%;max-width:520px}.hero-photo-frame{inset:4% 7% 8%;border-radius:25px 25px 64px 25px}.hero-side-note{right:0;font-size:7px}.hero-photo-caption{left:17px;bottom:18px}.hero-photo-caption small{font-size:7px;letter-spacing:.08em}.hero-photo-index{top:13px;left:13px}.lamp-scene{left:-170px;top:25%;width:440px;opacity:.27}.lamp-login-main{justify-content:center;padding:24px 18px 50px}.lamp-login-card{max-width:450px}.login-top{padding:18px}.login-back{font-size:8px}}
 @media(max-width:420px){.hero-photo-stage{height:390px!important;min-height:390px!important}.hero-photo-frame{inset:3% 5% 8%}.hero-photo-caption span{font-size:24px}.hero-photo-caption small{max-width:230px;line-height:1.6}.lamp-login-card{padding:24px 20px;border-radius:23px}.lamp-login-card h1{font-size:46px}}
 @media(prefers-reduced-motion:reduce){.hero-portrait,.lamp-shade,.lamp-glow,.lamp-dust,.login-stars,.login-orbit-mark,.submit-light{animation:none!important}}
+
+/* V16 touch effects: rotating multicolour photo edge, no lightbox */
+.photo-card{position:relative;isolation:isolate;overflow:hidden;border:1px solid transparent!important;background:var(--bg2);}
+.photo-card:before{z-index:1;}
+.photo-card:after{content:"";position:absolute;inset:0;padding:2px;border-radius:inherit;pointer-events:none;z-index:4;background:conic-gradient(from var(--edge-angle,0deg),#ff3cac,#784bff,#00e5ff,#00ffa3,#ffe45e,#ff3cac);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.78;transition:opacity .25s;animation:edgeRotate 5s linear infinite;}
+.photo-card.edge-spin-hit:after,.photo-card:focus-visible:after{opacity:1;animation:edgeRotate .75s linear infinite;filter:drop-shadow(0 0 7px #9d65ff);}.photo-card.effect-hit{box-shadow:0 0 0 1px #58e6f4,0 0 30px #a879ff55,0 0 55px #00e5ff22,var(--shadow);}
+.photo-card.effect-hit img{filter:saturate(1.3) brightness(1.08);}
+@keyframes edgeRotate{to{--edge-angle:360deg}}
+@property --edge-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+.login-quick-access{font:8px 'DM Mono',monospace;letter-spacing:.12em;border:1px solid #58e6f4a0;border-radius:100px;padding:9px 11px;color:var(--text);text-decoration:none;box-shadow:0 0 16px #58e6f422;transition:transform .25s,box-shadow .25s,border-color .25s;}
+.login-quick-access:hover{transform:translateY(-2px);border-color:#a879ff;box-shadow:0 0 22px #a879ff55;}
+@media(max-width:800px){.login-quick-access{padding:7px 8px;font-size:7px}.owner-quick-access{margin-left:4px}}
+@media(max-width:390px){.login-quick-access{display:none}}
+
+/* V17 VIDEO-INSPIRED NEON INTERACTIONS */
+:where(a,button,[role="button"],.button){position:relative;isolation:isolate;overflow:hidden;-webkit-tap-highlight-color:transparent;transition:transform .22s ease,filter .25s ease,box-shadow .25s ease}
+:where(a,button,[role="button"],.button):active,:where(a,button,[role="button"],.button).tap-neon-hit{filter:brightness(1.2);box-shadow:0 0 0 1px rgba(255,255,255,.95),0 0 12px rgba(255,229,80,.95),0 0 28px rgba(50,255,140,.72);transform:scale(.975)}
+.tap-burst{position:absolute;left:var(--tap-x,50%);top:var(--tap-y,50%);width:12px;height:12px;border:2px solid #fff;border-radius:50%;pointer-events:none;z-index:20;transform:translate(-50%,-50%);animation:v17-burst .72s ease-out forwards;box-shadow:0 0 10px #fff,0 0 20px #ffe45e}
+@keyframes v17-burst{0%{opacity:1;width:12px;height:12px}55%{opacity:.9;border-color:#ffe45e;box-shadow:0 0 15px #ffe45e,0 0 26px #50ffb0}100%{opacity:0;width:155px;height:155px;border-color:#50ffb0;box-shadow:0 0 22px #50ffb0}}
+.photo-card{isolation:isolate;overflow:hidden;--edge-speed:4.2s}
+.photo-card::before{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;padding:3px;border-radius:inherit;background:conic-gradient(from 0deg,#ff2d75,#ffe45e,#46ffb1,#28d7ff,#9a63ff,#ff2dce,#ff2d75);animation:v17-edge-rotate var(--edge-speed) linear infinite;opacity:.95;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+@keyframes v17-edge-rotate{to{filter:hue-rotate(360deg);transform:rotate(1turn)}}
+.photo-card .shine{z-index:5;pointer-events:none;opacity:0;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.12) 38%,rgba(255,255,255,.95) 50%,rgba(75,255,222,.35) 57%,transparent 72%);mix-blend-mode:screen}
+.photo-card.effect-hit .shine,.photo-card.edge-spin-hit .shine{opacity:1;animation:shineSweep .95s ease-out!important}
+.photo-card.effect-hit{box-shadow:0 0 0 1px #fff,0 0 16px #00eaff,0 0 34px #a855f7;filter:saturate(1.18)}
+.photo-card.edge-spin-hit::before{animation-duration:1s;filter:brightness(1.35)}
+.login-body{overflow-x:hidden}
+.login-card{animation:v17-card-in .85s cubic-bezier(.2,.8,.2,1) both;position:relative}
+.login-card::before{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:conic-gradient(#ffe45e,#56ffb1,#31d8ff,#aa63ff,#ff4fc8,#ffe45e);animation:v17-edge-rotate 5s linear infinite;pointer-events:none;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+@keyframes v17-card-in{from{opacity:0;transform:translateY(22px) scale(.98);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@media(max-width:600px){:where(a,button,[role="button"],.button){touch-action:manipulation}.photo-card::before{padding:2px}.tap-burst{max-width:70vw;max-height:70vw}}
+@media(prefers-reduced-motion:reduce){.photo-card::before,.login-card::before{animation:none!important}.tap-burst{animation-duration:.15s!important}:where(a,button,[role="button"],.button){transition:none!important}}
