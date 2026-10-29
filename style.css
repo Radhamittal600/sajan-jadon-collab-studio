@@ -509,11 +509,38 @@ html:not(.js-motion-ready) .reveal,html:not(.js-motion-ready) [data-reveal]{opac
 @media(max-width:600px){:where(a,button,[role="button"],.button){touch-action:manipulation}.photo-card::before{padding:2px}.tap-burst{max-width:70vw;max-height:70vw}}
 @media(prefers-reduced-motion:reduce){.photo-card::before,.login-card::before{animation:none!important}.tap-burst{animation-duration:.15s!important}:where(a,button,[role="button"],.button){transition:none!important}}
 
-/* Requested video-style neon button effect: white outline -> yellow sweep -> green neon. */
-:where(a,button,[role="button"],.button){position:relative;isolation:isolate;overflow:hidden;transition:color .25s,border-color .25s,box-shadow .25s,transform .25s,filter .25s;}
-:where(a,button,[role="button"],.button)::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(105deg,transparent 20%,rgba(255,225,60,.85) 48%,transparent 72%);transform:translateX(-130%);opacity:0;}
-:where(a,button,[role="button"],.button):hover::after,:where(a,button,[role="button"],.button).tap-neon-hit::after{opacity:1;animation:videoButtonSweep .75s ease-out;}
-:where(a,button,[role="button"],.button):hover{box-shadow:0 0 0 1px rgba(255,255,255,.9),0 0 12px rgba(255,221,45,.65),0 0 26px rgba(52,255,126,.48);}
-@keyframes videoButtonSweep{0%{transform:translateX(-130%)}55%{transform:translateX(0)}100%{transform:translateX(130%)}}
-/* Keep the sole LOGIN button visible on small phones. */
+
+/* VIDEO-MATCH BUTTON FX: white outline -> yellow sweep -> green neon on press */
+.button,.lamp-submit,.login-quick-access,.whatsapp-float{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(255,255,255,.82)!important;box-shadow:0 0 7px rgba(255,255,255,.16),inset 0 0 7px rgba(255,255,255,.06);transition:color .25s,border-color .25s,box-shadow .25s,transform .25s;}
+.button:after,.lamp-submit:after,.login-quick-access:after,.whatsapp-float:after{content:"";position:absolute;inset:-2px;border-radius:inherit;pointer-events:none;background:linear-gradient(100deg,transparent 0%,rgba(255,214,0,.04) 35%,#ffe34d 50%,transparent 66%);transform:translateX(-130%);animation:videoYellowSweep 3.6s ease-in-out infinite;z-index:-1;}
+@keyframes videoYellowSweep{0%,18%{transform:translateX(-130%);filter:drop-shadow(0 0 0 #ffd400)}42%{transform:translateX(130%);filter:drop-shadow(0 0 9px #ffd400)}43%,100%{transform:translateX(130%);}}
+.button:active,.lamp-submit:active,.login-quick-access:active,.whatsapp-float:active{border-color:#58ff37!important;color:#eaffdf!important;box-shadow:0 0 8px #65ff2c,0 0 22px #42ff1c,0 0 46px #32ff1c!important;transform:scale(.97);}
+.button:focus-visible,.lamp-submit:focus-visible,.login-quick-access:focus-visible,.whatsapp-float:focus-visible{outline:2px solid #ffe34d;outline-offset:4px;box-shadow:0 0 12px #ffe34d,0 0 28px #ffe34d66;}
+.login-quick-access{display:inline-flex!important;align-items:center;justify-content:center;min-width:58px;}
 @media(max-width:390px){.login-quick-access{display:inline-flex!important}.owner-quick-access{display:none!important}}
+.owner-quick-access{display:none!important}
+.lamp-submit{border-radius:999px!important;background:#080b0a!important;color:#fff!important;border:1px solid #f8f8f8!important;box-shadow:0 0 10px #fff4!important;}
+.lamp-submit:hover{border-color:#ffd400!important;color:#fff8cb!important;box-shadow:0 0 12px #ffd400,0 0 32px #ffd40088!important;}
+.lamp-submit:active{background:#071107!important;border-color:#54ff24!important;box-shadow:0 0 12px #54ff24,0 0 35px #54ff2488!important;}
+
+
+/* VIDEO-INSPIRED BUTTON EFFECT: white outline -> yellow delivery glow -> green success glow */
+.fx-interactive, button, .login-quick-access, .whatsapp-float, .lamp-submit {
+  position: relative; isolation: isolate; overflow: hidden;
+  transition: color .35s ease, border-color .35s ease, box-shadow .35s ease, transform .25s ease;
+}
+.fx-interactive::before, button::before, .login-quick-access::before, .whatsapp-float::before, .lamp-submit::before {
+  content: ""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:linear-gradient(110deg, transparent 20%, rgba(255,255,255,.45) 48%, transparent 72%);
+  transform:translateX(-130%); transition:transform .65s ease; z-index:-1;
+}
+.fx-interactive:hover, button:hover, .login-quick-access:hover, .whatsapp-float:hover, .lamp-submit:hover {
+  border-color:#ffe45c; color:#fff7bf; box-shadow:0 0 8px #ffe45c,0 0 22px rgba(255,220,35,.7);
+  transform:translateY(-2px); animation:video-button-yellow .75s ease both;
+}
+.fx-interactive:hover::before, button:hover::before, .login-quick-access:hover::before, .whatsapp-float:hover::before, .lamp-submit:hover::before { transform:translateX(130%); }
+.fx-interactive:active, button:active, .login-quick-access:active, .whatsapp-float:active, .lamp-submit:active {
+  border-color:#3cff75; box-shadow:0 0 10px #26ff69,0 0 30px rgba(20,255,90,.8); transform:scale(.97);
+}
+@keyframes video-button-yellow { 0%,100%{box-shadow:0 0 4px rgba(255,230,80,.25)} 50%{box-shadow:0 0 12px #ffe45c,0 0 28px rgba(255,220,35,.85)} }
+@media(prefers-reduced-motion:reduce){.fx-interactive,button,.login-quick-access,.whatsapp-float,.lamp-submit{animation:none!important;transition:none!important}}
