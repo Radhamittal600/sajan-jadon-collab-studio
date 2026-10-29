@@ -508,3 +508,12 @@ html:not(.js-motion-ready) .reveal,html:not(.js-motion-ready) [data-reveal]{opac
 @keyframes v17-card-in{from{opacity:0;transform:translateY(22px) scale(.98);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 @media(max-width:600px){:where(a,button,[role="button"],.button){touch-action:manipulation}.photo-card::before{padding:2px}.tap-burst{max-width:70vw;max-height:70vw}}
 @media(prefers-reduced-motion:reduce){.photo-card::before,.login-card::before{animation:none!important}.tap-burst{animation-duration:.15s!important}:where(a,button,[role="button"],.button){transition:none!important}}
+
+/* Requested video-style neon button effect: white outline -> yellow sweep -> green neon. */
+:where(a,button,[role="button"],.button){position:relative;isolation:isolate;overflow:hidden;transition:color .25s,border-color .25s,box-shadow .25s,transform .25s,filter .25s;}
+:where(a,button,[role="button"],.button)::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(105deg,transparent 20%,rgba(255,225,60,.85) 48%,transparent 72%);transform:translateX(-130%);opacity:0;}
+:where(a,button,[role="button"],.button):hover::after,:where(a,button,[role="button"],.button).tap-neon-hit::after{opacity:1;animation:videoButtonSweep .75s ease-out;}
+:where(a,button,[role="button"],.button):hover{box-shadow:0 0 0 1px rgba(255,255,255,.9),0 0 12px rgba(255,221,45,.65),0 0 26px rgba(52,255,126,.48);}
+@keyframes videoButtonSweep{0%{transform:translateX(-130%)}55%{transform:translateX(0)}100%{transform:translateX(130%)}}
+/* Keep the sole LOGIN button visible on small phones. */
+@media(max-width:390px){.login-quick-access{display:inline-flex!important}.owner-quick-access{display:none!important}}
