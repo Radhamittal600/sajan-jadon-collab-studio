@@ -2,7 +2,7 @@
   'use strict';
 
   const $ = id => document.getElementById(id);
-  const KEY = 'sajanJadonOwnerSettingsDraftV2';
+  const KEY = 'sajanJadonOwnerSettingsDraftV3';
 
   const defaults = {
     brand: 'SAJAN JADON',
@@ -19,38 +19,39 @@
   };
 
   const ids = {
-    brand:'opBrand',
-    headline:'opHeadline',
-    subtitle:'opSubtitle',
-    buttonText:'opButtonText',
-    accent:'opAccent',
-    background:'opBackground',
-    footer:'opFooter',
-    seoTitle:'opSeoTitle',
-    seoDescription:'opSeoDescription',
-    contactLabel:'opContactLabel',
-    theme:'opTheme'
+    brand: 'opBrand',
+    headline: 'opHeadline',
+    subtitle: 'opSubtitle',
+    buttonText: 'opButtonText',
+    accent: 'opAccent',
+    background: 'opBackground',
+    footer: 'opFooter',
+    seoTitle: 'opSeoTitle',
+    seoDescription: 'opSeoDescription',
+    contactLabel: 'opContactLabel',
+    theme: 'opTheme'
   };
 
   function getValues() {
     const data = {};
-    for (const [key,id] of Object.entries(ids)) {
-      const el = $(id);
-      data[key] = el ? el.value : defaults[key];
+    for (const [key, id] of Object.entries(ids)) {
+      const field = $(id);
+      data[key] = field ? field.value : defaults[key];
     }
     return data;
   }
 
   function fill(data) {
-    for (const [key,id] of Object.entries(ids)) {
-      const el = $(id);
-      if (el) el.value = data[key] ?? defaults[key];
+    for (const [key, id] of Object.entries(ids)) {
+      const field = $(id);
+      if (field) field.value = data[key] ?? defaults[key];
     }
     preview();
   }
 
   function preview() {
     const d = getValues();
+
     if ($('opPreviewBrand')) $('opPreviewBrand').textContent = d.brand;
     if ($('opPreviewHeadline')) $('opPreviewHeadline').textContent = d.headline;
     if ($('opPreviewSubtitle')) $('opPreviewSubtitle').textContent = d.subtitle;
@@ -62,67 +63,88 @@
   }
 
   function switchTab(name) {
+    const section = document.querySelector(`[data-owner-section="${name}"]`);
+    if (!section) return;
+
     document.querySelectorAll('[data-owner-section]').forEach(el => {
       el.classList.toggle('active', el.dataset.ownerSection === name);
     });
+
     document.querySelectorAll('[data-owner-tab]').forEach(el => {
       el.classList.toggle('active', el.dataset.ownerTab === name);
+      if (el.dataset.ownerTab === name) el.setAttribute('aria-current', 'page');
+      else el.removeAttribute('aria-current');
     });
-    window.scrollTo({top:0,behavior:'smooth'});
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  document.querySelectorAll('[data-owner-tab]').forEach(el => {
-    el.addEventListener('click', () => switchTab(el.dataset.ownerTab));
-  });
-  document.querySelectorAll('[data-owner-go]').forEach(el => {
-    el.addEventListener('click', () => switchTab(el.dataset.ownerGo));
+  document.querySelectorAll('[data-owner-tab]').forEach(button => {
+    button.addEventListener('click', () => switchTab(button.dataset.ownerTab));
   });
 
-  const settingsForm = $('ownerSettingsForm');
-
-  try {
-    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
-    fill({...defaults,...saved});
-  } catch {
-    fill(defaults);
-  }
-
-  settingsForm?.addEventListener('input', preview);
-
-  settingsForm?.addEventListener('submit', event => {
-    event.preventDefault();
-    try {
-      localStorage.setItem(KEY, JSON.stringify(getValues()));
-      if ($('opSettingsStatus')) {
-        $('opSettingsStatus').textContent =
-          'Draft saved in this browser. Live visitor-wide publishing needs a connected settings database.';
-      }
-    } catch {
-      if ($('opSettingsStatus')) $('opSettingsStatus').textContent = 'Could not save the draft.';
-    }
-  });
-
-  $('opResetSettings')?.addEventListener('click', () => {
-    if (!confirm('Reset all fields to their default values?')) return;
-    fill(defaults);
-    if ($('opSettingsStatus')) $('opSettingsStatus').textContent = 'Defaults restored. Press Save Draft to save them.';
+  document.querySelectorAll('[data-owner-go]').forEach(button => {
+    button.addEventListener('click', () => switchTab(button.dataset.ownerGo));
   });
 
   $('opSitePreview')?.addEventListener('click', () => {
-    window.open('index.html','_blank','noopener');
+    window.open('index.html', '_blank', 'noopener');
   });
 
   $('opJumpPortfolio')?.addEventListener('click', () => switchTab('portfolio'));
   $('opJumpEnquiries')?.addEventListener('click', () => switchTab('enquiries'));
 
-  const countObserver = new MutationObserver(() => {
-    const portfolio = document.querySelectorAll('#adminGallery .admin-row').length;
-    const enquiries = document.querySelectorAll('#enquiries .enquiry').length;
-    if ($('opPortfolioCount')) $('opPortfolioCount').textContent = portfolio;
-    if ($('opEnquiryCount')) $('opEnquiryCount').textContent = enquiries;
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    fill({ ...defaults, ...saved });
+  } catch (error) {
+    fill(defaults);
+  }
+
+  const form = $('ownerSettingsForm');
+
+  form?.addEventListener('input', preview);
+  form?.addEventListener('change', preview);
+
+  form?.addEventListener('submit', event => {
+    event.preventDefault();
+
+    try {
+      localStorage.setItem(KEY, JSON.stringify(getValues()));
+      if ($('opSettingsStatus')) {
+        $('opSettingsStatus').textContent =
+          'Draft saved in this browser. Shared live publishing needs a configured settings database.';
+      }
+    } catch (error) {
+      if ($('opSettingsStatus')) {
+        $('opSettingsStatus').textContent = 'Could not save draft. Check browser storage.';
+      }
+    }
   });
 
-  ['adminGallery','enquiries'].forEach(id => {
-    if ($(id)) countObserver.observe($(id),{childList:true,subtree:true});
+  $('opResetSettings')?.addEventListener('click', () => {
+    if (!confirm('Reset all editor fields to defaults?')) return;
+    fill(defaults);
+    if ($('opSettingsStatus')) {
+      $('opSettingsStatus').textContent = 'Defaults restored. Save Draft to keep these settings.';
+    }
   });
+
+  const updateCounts = () => {
+    const portfolioCount = document.querySelectorAll('#adminGallery .admin-row').length;
+    const enquiryCount = document.querySelectorAll('#enquiries .enquiry').length;
+
+    if ($('opPortfolioCount')) $('opPortfolioCount').textContent = portfolioCount;
+    if ($('opEnquiryCount')) $('opEnquiryCount').textContent = enquiryCount;
+  };
+
+  const observer = new MutationObserver(updateCounts);
+
+  ['adminGallery', 'enquiries'].forEach(id => {
+    const node = $(id);
+    if (node) observer.observe(node, { childList: true, subtree: true });
+  });
+
+  window.addEventListener('pageshow', updateCounts);
+  setTimeout(updateCounts, 1200);
 })();
