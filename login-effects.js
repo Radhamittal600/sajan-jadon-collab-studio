@@ -1,45 +1,93 @@
 (() => {
-  const body = document.body;
-  if (body && body.classList.contains('lamp-login')) {
-    const colors = ['255,190,75','0,220,255','170,90,255','255,90,170'];
+  'use strict';
+
+  if (!document.body.classList.contains('lamp-login')) return;
+
+  const robot = document.createElement('div');
+  robot.id = 'cuteLoginRobot';
+  robot.setAttribute('aria-hidden', 'true');
+  robot.innerHTML = `
+    <div class="cr-shadow"></div>
+    <div class="cr-antenna"><i></i></div>
+    <div class="cr-head">
+      <div class="cr-ear cr-ear-l"></div>
+      <div class="cr-ear cr-ear-r"></div>
+      <div class="cr-eyes"><i></i><i></i></div>
+      <div class="cr-cheeks"><i></i><i></i></div>
+      <div class="cr-mouth"></div>
+      <div class="cr-cross">✕</div>
+      <div class="cr-success">✓</div>
+    </div>
+    <div class="cr-body">
+      <span class="cr-heart">♥</span>
+      <i class="cr-arm cr-arm-l"></i>
+      <i class="cr-arm cr-arm-r"></i>
+    </div>
+    <div class="cr-legs"><i></i><i></i></div>
+    <div class="cr-bubble"></div>`;
+  document.body.appendChild(robot);
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let x = innerWidth * .78;
+  let y = innerHeight * .72;
+  let tx = x, ty = y;
+  let mode = 'idle';
+  let modeTimer;
+
+  function moveTarget(e) {
+    const p = e.touches ? e.touches[0] : e;
+    if (!p) return;
+    tx = Math.max(65, Math.min(innerWidth - 65, p.clientX + 35));
+    ty = Math.max(120, Math.min(innerHeight - 100, p.clientY + 25));
+  }
+
+  document.addEventListener('pointermove', moveTarget, {passive:true});
+  document.addEventListener('touchmove', moveTarget, {passive:true});
+
+  function animate() {
+    if (mode === 'idle') {
+      x += (tx - x) * (reduced ? .4 : .12);
+      y += (ty - y) * (reduced ? .4 : .12);
+      robot.style.left = x + 'px';
+      robot.style.top = y + 'px';
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  window.loginRobotReact = function (result) {
+    clearTimeout(modeTimer);
+    mode = result;
+    robot.classList.remove('cr-fail','cr-dance');
+    void robot.offsetWidth;
+
+    if (result === 'fail') {
+      robot.classList.add('cr-fail');
+      robot.querySelector('.cr-bubble').textContent = '✋ ✕ Try again!';
+    } else if (result === 'success') {
+      robot.classList.add('cr-dance');
+      robot.querySelector('.cr-bubble').textContent = 'YAY! 🎉';
+    } else {
+      mode = 'idle';
+      robot.querySelector('.cr-bubble').textContent = '';
+    }
+
+    if (result !== 'idle') {
+      modeTimer = setTimeout(() => {
+        robot.classList.remove('cr-fail','cr-dance');
+        robot.querySelector('.cr-bubble').textContent = '';
+        mode = 'idle';
+      }, result === 'success' ? 1800 : 2200);
+    }
+  };
+
+  const lamp = document.querySelector('.lamp-stage');
+  if (lamp) {
+    const colors = ['#ffe7a1','#8cf7ff','#e8a4ff','#a8ffbd'];
     let i = 0;
     setInterval(() => {
       i = (i + 1) % colors.length;
-      body.style.setProperty('--lamp-color', colors[i]);
-    }, 3200);
-
-    const lamp = document.querySelector('.lamp-stage');
-    if (lamp) {
-      lamp.setAttribute('tabindex', '0');
-      lamp.setAttribute('role', 'button');
-      lamp.setAttribute('aria-label', 'Change lamp light color');
-      const toggle = () => {
-        i = (i + 1) % colors.length;
-        body.style.setProperty('--lamp-color', colors[i]);
-      };
-      lamp.addEventListener('click', toggle);
-      lamp.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggle();
-        }
-      });
-    }
+      lamp.style.setProperty('--lamp-color', colors[i]);
+    }, 2600);
   }
-
-  // Animate only the element that actually contains the creator credit.
-  const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-  const hits = [];
-  while (walk.nextNode()) {
-    const node = walk.currentNode;
-    if (/website\s*created\s*by\s*chetan\s*mittal/i.test(node.nodeValue || '')) {
-      let el = node.parentElement;
-      while (el && el !== document.body &&
-        (el.children.length > 4 || (el.tagName === 'BODY' || el.tagName === 'HTML'))) {
-        el = el.parentElement;
-      }
-      if (el && el !== document.body) hits.push(el);
-    }
-  }
-  [...new Set(hits)].forEach(el => el.classList.add('chetan-creator-signature'));
 })();

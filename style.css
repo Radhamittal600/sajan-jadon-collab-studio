@@ -850,3 +850,219 @@ footer .credit {
     animation: none !important;
   }
 }
+
+/* LOGIN PAGE ONLY — animated lamp + cute cursor robot */
+.lamp-login {
+  overflow-x: hidden;
+  --lamp-color: #ffe7a1;
+}
+.lamp-login .lamp-stage {
+  position: relative;
+  isolation: isolate;
+  min-height: 340px;
+}
+.lamp-login .lamp-halo {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  left: 50%;
+  top: 15%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--lamp-color, #ffe7a1);
+  filter: blur(48px);
+  opacity: .38;
+  animation: loginLampGlow 2.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.lamp-login .lamp-cone {
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  width: 230px;
+  height: 180px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--lamp-color, #ffe7a1), transparent);
+  clip-path: polygon(40% 0,60% 0,100% 100%,0 100%);
+  opacity: .17;
+  filter: blur(8px);
+  pointer-events: none;
+}
+.lamp-login .lamp-head {
+  position: absolute;
+  left: 50%;
+  top: 17%;
+  width: 105px;
+  height: 35px;
+  border-radius: 50% 50% 12px 12px;
+  transform: translateX(-50%) rotate(-12deg);
+  background: linear-gradient(180deg,#fff,#aebdce 45%,#303d50);
+  box-shadow: 0 0 24px var(--lamp-color, #ffe7a1);
+  z-index: 2;
+}
+.lamp-login .lamp-neck {
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  width: 12px;
+  height: 90px;
+  transform: rotate(-12deg);
+  transform-origin: top;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#536277,#f5f8ff,#384457);
+  z-index: 1;
+}
+.lamp-login .lamp-pole {
+  position: absolute;
+  left: calc(50% - 5px);
+  top: 48%;
+  width: 10px;
+  height: 80px;
+  border-radius: 10px;
+  background: linear-gradient(90deg,#354154,#f2f5ff,#344154);
+}
+.lamp-login .lamp-base {
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  width: 115px;
+  height: 20px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: linear-gradient(#f4f7ff,#64748b 55%,#1b2432);
+  box-shadow: 0 10px 28px #0009;
+}
+.lamp-login .lamp-floor {
+  position: absolute;
+  left: 50%;
+  top: 75%;
+  width: 220px;
+  height: 28px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--lamp-color, #ffe7a1);
+  filter: blur(23px);
+  opacity: .32;
+}
+@keyframes loginLampGlow {
+  from { opacity:.2; transform:translateX(-50%) scale(.86); }
+  to { opacity:.48; transform:translateX(-50%) scale(1.14); }
+}
+
+/* Small robot follows finger/cursor on the login page */
+#cuteLoginRobot {
+  position: fixed;
+  z-index: 9999;
+  left: 75vw;
+  top: 65vh;
+  width: 76px;
+  height: 105px;
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  filter: drop-shadow(0 8px 9px #0008);
+  will-change: left,top;
+}
+#cuteLoginRobot .cr-head {
+  position:absolute;
+  left:12px; top:17px;
+  width:52px; height:43px;
+  border:2px solid #d8faff;
+  border-radius:17px 17px 14px 14px;
+  background:linear-gradient(145deg,#fff,#b8d9e9 65%,#7f9bad);
+  box-shadow:inset 0 -5px 0 #7595a7,0 0 14px #4deaff66;
+}
+#cuteLoginRobot .cr-antenna {
+  position:absolute; left:36px; top:4px;
+  width:3px; height:15px; background:#d9faff;
+}
+#cuteLoginRobot .cr-antenna i {
+  position:absolute; top:-5px; left:-4px;
+  width:11px; height:11px; border-radius:50%;
+  background:#ffdc69; box-shadow:0 0 12px #ffdc69;
+  animation:crBlink 1.2s infinite alternate;
+}
+#cuteLoginRobot .cr-ear {
+  position:absolute; top:12px; width:7px; height:17px;
+  border-radius:5px; background:#61d9e9;
+}
+#cuteLoginRobot .cr-ear-l { left:-7px; }
+#cuteLoginRobot .cr-ear-r { right:-7px; }
+#cuteLoginRobot .cr-eyes {
+  display:flex; justify-content:center; gap:12px; padding-top:12px;
+}
+#cuteLoginRobot .cr-eyes i {
+  width:7px; height:9px; border-radius:50%;
+  background:#12364c; box-shadow:0 0 5px #00eaff;
+}
+#cuteLoginRobot .cr-cheeks {
+  display:flex; justify-content:space-between;
+  margin:0 5px; position:absolute; top:27px; left:0; right:0;
+}
+#cuteLoginRobot .cr-cheeks i {
+  width:7px; height:4px; border-radius:50%; background:#ff9cae;
+}
+#cuteLoginRobot .cr-mouth {
+  position:absolute; left:22px; bottom:6px;
+  width:9px; height:4px; border-bottom:2px solid #23495c;
+  border-radius:50%;
+}
+#cuteLoginRobot .cr-body {
+  position:absolute; left:22px; top:63px;
+  width:33px; height:25px; border-radius:9px;
+  background:linear-gradient(135deg,#83efff,#4e9fc4);
+  border:2px solid #d8faff;
+}
+#cuteLoginRobot .cr-heart {
+  position:absolute; left:11px; top:3px; color:#ff638d; font-size:12px;
+}
+#cuteLoginRobot .cr-arm {
+  position:absolute; top:5px; width:7px; height:23px;
+  border-radius:8px; background:#c6f5ff;
+  transform-origin:top center;
+}
+#cuteLoginRobot .cr-arm-l { left:-8px; transform:rotate(24deg); }
+#cuteLoginRobot .cr-arm-r { right:-8px; transform:rotate(-24deg); }
+#cuteLoginRobot .cr-legs {
+  position:absolute; top:87px; left:29px; display:flex; gap:10px;
+}
+#cuteLoginRobot .cr-legs i {
+  width:7px; height:12px; border-radius:5px;
+  background:#9cc8db; border:1px solid #e2fbff;
+}
+#cuteLoginRobot .cr-shadow {
+  position:absolute; top:99px; left:18px; width:42px; height:8px;
+  border-radius:50%; background:#0007; filter:blur(3px);
+}
+#cuteLoginRobot .cr-cross,#cuteLoginRobot .cr-success {
+  display:none; position:absolute; inset:7px 0 auto;
+  text-align:center; font-weight:900; font-size:25px;
+}
+#cuteLoginRobot .cr-cross { color:#ff334f; }
+#cuteLoginRobot .cr-success { color:#00b879; }
+#cuteLoginRobot .cr-bubble {
+  position:absolute; top:-15px; left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap; color:white; font-size:10px;
+  font-weight:800; text-shadow:0 2px 5px #000;
+}
+#cuteLoginRobot.cr-fail .cr-cross { display:block; }
+#cuteLoginRobot.cr-fail .cr-eyes { opacity:.25; }
+#cuteLoginRobot.cr-fail .cr-arm-r {
+  transform:rotate(-155deg) translateY(-4px);
+}
+#cuteLoginRobot.cr-dance {
+  animation:crDance .25s ease-in-out infinite alternate;
+}
+#cuteLoginRobot.cr-dance .cr-success { display:block; }
+#cuteLoginRobot.cr-dance .cr-eyes { opacity:.2; }
+#cuteLoginRobot.cr-dance .cr-arm-l { transform:rotate(145deg); }
+#cuteLoginRobot.cr-dance .cr-arm-r { transform:rotate(-145deg); }
+@keyframes crDance {
+  from { margin-top:-8px; rotate:-12deg; }
+  to { margin-top:8px; rotate:12deg; }
+}
+@keyframes crBlink { to { opacity:.35; } }
+@media(max-width:650px) {
+  .lamp-login .lamp-stage { min-height:270px; }
+  #cuteLoginRobot { scale:.85; }
+}
