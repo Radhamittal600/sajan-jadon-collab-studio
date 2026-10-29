@@ -13,117 +13,144 @@
 <script defer src="owner-panel.js"></script>
 </head>
 <body class="studio-body">
-<div class="op-layout">
-<header class="op-topbar">
-  <a class="brand op-brand" href="index.html">SAJAN<span>JADON</span><i>®</i></a>
-  <div class="op-status"><span class="op-dot"></span> OWNER WORKSPACE</div>
+<div class="owner-shell">
+<header class="owner-topbar">
+  <a class="brand owner-top-brand" href="index.html">SAJAN<span>JADON</span><i>®</i></a>
+  <div class="owner-status"><i></i> OWNER WORKSPACE</div>
   <button id="logoutBtn" class="button ghost">Log out ↗</button>
 </header>
 
-<div class="op-grid">
-<aside class="op-sidebar">
-  <div class="op-side-label">CONTROL CENTER</div>
-  <nav class="op-nav" aria-label="Owner navigation">
-    <button class="active" data-op-tab="overview">✦ Overview</button>
-    <button data-op-tab="portfolio">▧ Portfolio</button>
-    <button data-op-tab="enquiries">✉ Enquiries</button>
-    <button data-op-tab="settings">⚙ Website settings</button>
-    <button data-op-tab="security">♙ Security</button>
+<div class="owner-layout">
+<aside class="owner-sidebar">
+  <div class="owner-nav-label">CONTROL CENTER</div>
+  <nav class="owner-nav">
+    <button class="active" data-owner-tab="overview">✦ Overview</button>
+    <button data-owner-tab="settings">🎨 Website Editor</button>
+    <button data-owner-tab="portfolio">▧ Portfolio</button>
+    <button data-owner-tab="enquiries">✉ Enquiries</button>
+    <button data-owner-tab="security">🔐 Security</button>
   </nav>
-  <div class="op-side-label">QUICK LINKS</div>
-  <nav class="op-nav">
-    <button id="opViewSite">↗ View live website</button>
+  <div class="owner-nav-label">QUICK LINKS</div>
+  <nav class="owner-nav">
+    <button id="opSitePreview">↗ View Website</button>
   </nav>
 </aside>
 
-<main class="op-main">
-<section class="op-section active" data-op-section="overview">
-  <div class="op-heading">
+<main class="owner-main">
+<section class="owner-section active" data-owner-section="overview">
+  <div class="owner-heading">
     <div>
-      <div class="op-eyebrow">Private administration · 01</div>
-      <h1>Welcome to your<br><span class="op-gradient">Control Center.</span></h1>
-      <div class="op-subtitle">Manage your creative presence from one workspace.</div>
+      <div class="owner-kicker">PRIVATE ADMINISTRATION</div>
+      <h1>Your <span class="owner-gradient">Control Center.</span></h1>
+      <div class="owner-muted">A clear place to manage your creative website.</div>
     </div>
   </div>
-  <div class="op-stats">
-    <article class="op-stat"><div class="op-stat-icon">▧</div><div class="op-stat-label">Portfolio items</div><div class="op-stat-value" id="opPortfolioCount">—</div></article>
-    <article class="op-stat"><div class="op-stat-icon">✉</div><div class="op-stat-label">Enquiries loaded</div><div class="op-stat-value" id="opEnquiryCount">—</div></article>
-    <article class="op-stat"><div class="op-stat-icon">◈</div><div class="op-stat-label">Workspace</div><div class="op-stat-value" style="font-size:20px">OWNER</div></article>
+  <div class="owner-stats">
+    <article class="owner-stat"><div class="owner-stat-icon">▧</div><div class="owner-stat-label">Published portfolio items</div><div class="owner-stat-value" id="opPortfolioCount">—</div></article>
+    <article class="owner-stat"><div class="owner-stat-icon">✉</div><div class="owner-stat-label">Loaded enquiries</div><div class="owner-stat-value" id="opEnquiryCount">—</div></article>
+    <article class="owner-stat"><div class="owner-stat-icon">◈</div><div class="owner-stat-label">Access area</div><div class="owner-stat-value">OWNER</div></article>
   </div>
-  <div class="op-notice"><strong>Live control:</strong> Portfolio publishing, deletion and enquiry loading use your existing Appwrite setup. Website-wide settings below are currently saved locally in this browser until a secure shared settings database is connected.</div>
-  <div class="op-card">
-    <div class="op-eyebrow">QUICK ACTIONS</div><h2>What would you like to manage?</h2>
-    <div class="op-actions">
-      <button class="op-action primary" data-op-go="portfolio">＋ Publish new work</button>
-      <button class="op-action" data-op-go="enquiries">✉ View enquiries</button>
-      <button class="op-action" data-op-go="settings">⚙ Website settings</button>
-      <a class="op-action" href="index.html">↗ Open website</a>
-    </div>
-  </div>
-</section>
-
-<section class="op-section" data-op-section="portfolio">
-  <div class="op-heading"><div><div class="op-eyebrow">Content management · 02</div><h1>Your <span class="op-gradient">Portfolio.</span></h1><div class="op-subtitle">Publish, review and remove your creative work.</div></div></div>
-  <div class="op-card">
-    <div class="op-notice">Published items are managed through your existing Appwrite database and storage configuration.</div>
-    <div class="dashboard-grid">
-      <section class="panel">
-        <div class="eyebrow">ADD TO PORTFOLIO</div><h2>Publish new work</h2>
-        <form id="uploadForm">
-          <label>Title<input name="title" required maxlength="140" placeholder="Project title"></label>
-          <label>Type<select name="type"><option value="image">Photo</option><option value="video">Video file</option><option value="youtube">YouTube link</option></select></label>
-          <div id="fileField"><label>Media file<input name="media" type="file" accept="image/*" required></label><small>Large videos are better added as YouTube links.</small></div>
-          <div id="youtubeField" hidden><label>YouTube video URL<input name="youtubeUrl" type="url" placeholder="https://www.youtube.com/watch?v=..."></label></div>
-          <label>Short description<textarea name="description" rows="3" maxlength="500" placeholder="Describe your project"></textarea></label>
-          <button class="button primary full" type="submit">Publish work ↗</button><p id="uploadStatus" class="form-status" aria-live="polite"></p>
-        </form>
-      </section>
-      <section class="panel">
-        <div class="eyebrow">LIVE PORTFOLIO</div><h2>Published items</h2>
-        <p class="muted">Delete an item to remove it from the public gallery.</p>
-        <div id="adminGallery" class="admin-gallery">Loading…</div>
-      </section>
+  <div class="owner-notice"><strong>Important:</strong> Portfolio uploads and enquiries use your existing Appwrite integration. Website Editor drafts are saved locally until shared database settings are configured.</div>
+  <div class="owner-card">
+    <div class="owner-kicker">QUICK ACTIONS</div>
+    <h2>Manage your website</h2>
+    <p class="owner-muted">Open the editor, publish new work or review incoming collaborations.</p>
+    <div class="owner-actions">
+      <button class="owner-action primary" data-owner-go="settings">🎨 Edit website</button>
+      <button class="owner-action" id="opJumpPortfolio">＋ Publish work</button>
+      <button class="owner-action" id="opJumpEnquiries">✉ Open enquiries</button>
     </div>
   </div>
 </section>
 
-<section class="op-section" data-op-section="enquiries">
-  <div class="op-heading"><div><div class="op-eyebrow">Incoming collaborations · 03</div><h1>Client <span class="op-gradient">Enquiries.</span></h1><div class="op-subtitle">Review messages sent through your website.</div></div></div>
-  <div class="op-card"><div class="eyebrow">INBOX</div><h2>Recent messages</h2><div id="enquiries">Loading enquiries…</div></div>
-</section>
-
-<section class="op-section" data-op-section="settings">
-  <div class="op-heading"><div><div class="op-eyebrow">Personalization · 04</div><h1>Website <span class="op-gradient">Settings.</span></h1><div class="op-subtitle">Prepare your branding and SEO settings.</div></div></div>
-  <div class="op-card">
-    <div class="op-notice">These settings are saved in this browser only. They do not yet change the live website for visitors. A shared Appwrite settings collection is needed to publish these changes securely.</div>
-    <form id="opSettingsForm">
-      <div class="op-form-grid">
-        <label>Website name<input id="opSiteName" maxlength="80" placeholder="SAJAN JADON"></label>
-        <label>Accent colour<input id="opAccent" type="color" value="#a78bfa"></label>
-        <label class="op-span-2">Homepage headline<input id="opHeadline" maxlength="160" placeholder="Your creative headline"></label>
-        <label class="op-span-2">Homepage short description<textarea id="opDescription" rows="3" maxlength="500" placeholder="Describe your studio"></textarea></label>
-        <label class="op-span-2">SEO page title<input id="opSeoTitle" maxlength="70" placeholder="Website title for search engines"></label>
-        <label class="op-span-2">SEO description<textarea id="opSeoDescription" rows="3" maxlength="200" placeholder="Short search result description"></textarea></label>
+<section class="owner-section" data-owner-section="settings">
+  <div class="owner-heading">
+    <div><div class="owner-kicker">BRANDING · CONTENT · SEO</div><h1>Website <span class="owner-gradient">Editor.</span></h1><div class="owner-muted">Change each setting and preview your draft.</div></div>
+  </div>
+  <div class="owner-notice">This version saves a draft in this browser. It does not yet publish changes to every visitor. Shared live settings require configuring an Appwrite settings collection and updating the public website to read it.</div>
+  <div class="owner-card">
+    <h2>Brand & appearance</h2>
+    <form id="ownerSettingsForm">
+      <div class="owner-form-grid">
+        <label>Website / Brand Name<input id="opBrand" maxlength="80" placeholder="SAJAN JADON"></label>
+        <label>Theme<select id="opTheme"><option value="dark">Dark / Futuristic</option><option value="light">Light</option><option value="neon">Neon</option></select></label>
+        <label>Accent Colour<input id="opAccent" type="color" value="#a78bfa"></label>
+        <label>Background Colour<input id="opBackground" type="color" value="#080811"></label>
+        <label class="owner-span-2">Homepage Headline<input id="opHeadline" maxlength="160" placeholder="Create something unforgettable."></label>
+        <label class="owner-span-2">Homepage Subtitle<textarea id="opSubtitle" rows="3" maxlength="500" placeholder="Describe your studio"></textarea></label>
+        <label>Main Button Text<input id="opButtonText" maxlength="60" placeholder="Explore my work"></label>
+        <label>Contact Section Label<input id="opContactLabel" maxlength="80" placeholder="Let us collaborate"></label>
+        <label class="owner-span-2">Footer / Creator Credit<input id="opFooter" maxlength="120" placeholder="WEBSITE CREATED BY CHETAN MITTAL"></label>
       </div>
-      <div class="op-actions"><button class="op-action primary" type="submit">Save local draft</button><button class="op-action" type="button" id="opResetSettings">Reset draft</button></div>
-      <p id="opSettingsStatus" class="op-muted" role="status"></p>
+      <h2 style="margin-top:28px">Search Engine Optimization</h2>
+      <div class="owner-form-grid">
+        <label class="owner-span-2">SEO Page Title<input id="opSeoTitle" maxlength="70" placeholder="Sajan Jadon — Creative Studio"></label>
+        <label class="owner-span-2">SEO Description<textarea id="opSeoDescription" rows="3" maxlength="160" placeholder="Description shown in search results"></textarea></label>
+      </div>
+      <div class="owner-actions">
+        <button type="submit" class="owner-action primary">💾 Save Draft</button>
+        <button type="button" id="opResetSettings" class="owner-action">Reset Fields</button>
+      </div>
+      <p id="opSettingsStatus" class="owner-feedback" role="status"></p>
     </form>
   </div>
-</section>
-
-<section class="op-section" data-op-section="security">
-  <div class="op-heading"><div><div class="op-eyebrow">Access control · 05</div><h1>Owner <span class="op-gradient">Security.</span></h1><div class="op-subtitle">Keep the administration area private.</div></div></div>
-  <div class="op-card">
-    <h2>Security checklist</h2>
-    <p class="op-muted">✓ Owner identity is checked by the existing Appwrite authentication code.</p>
-    <p class="op-muted">✓ Login sessions can be ended using the Log out button.</p>
-    <p class="op-muted">✓ No Appwrite API secret should be placed in browser JavaScript.</p>
-    <p class="op-muted">Database collection permissions must be configured carefully. Never grant public write or delete access to owner content.</p>
-    <div class="op-actions"><button class="op-action primary" id="opSecurityLogout">Log out securely ↗</button></div>
+  <div class="owner-card">
+    <div class="owner-kicker">PREVIEW</div>
+    <h2>Preview your branding</h2>
+    <div class="owner-preview">
+      <div class="owner-preview-bar"><i></i><i></i><i></i><span>WEBSITE PREVIEW</span></div>
+      <div class="owner-preview-content">
+        <div id="opPreviewBrand" class="owner-preview-brand">SAJAN JADON</div>
+        <h3 id="opPreviewHeadline">Create something unforgettable.</h3>
+        <p id="opPreviewSubtitle">Creative visuals, meaningful stories and collaborations.</p>
+        <span id="opPreviewButton" class="owner-preview-button">Explore my work</span>
+        <p id="opPreviewFooter" style="font-size:10px;margin-top:35px">WEBSITE CREATED BY CHETAN MITTAL</p>
+      </div>
+    </div>
   </div>
 </section>
 
-<footer class="op-footer">CREATED WITH ✦ FOR <strong>SAJAN JADON</strong></footer>
+<section class="owner-section" data-owner-section="portfolio">
+  <div class="owner-heading"><div><div class="owner-kicker">CONTENT MANAGEMENT</div><h1>Your <span class="owner-gradient">Portfolio.</span></h1><div class="owner-muted">Publish new work and manage published items.</div></div></div>
+  <div class="owner-notice">The upload and delete actions use your existing Appwrite setup. Database and bucket IDs must be configured for these actions to work.</div>
+  <div class="dashboard-grid">
+    <section class="panel">
+      <div class="eyebrow">ADD TO PORTFOLIO</div><h2>Publish new work</h2>
+      <form id="uploadForm">
+        <label>Title<input name="title" required maxlength="140" placeholder="Project title"></label>
+        <label>Type<select name="type"><option value="image">Photo</option><option value="video">Video file</option><option value="youtube">YouTube link</option></select></label>
+        <div id="fileField"><label>Media file<input name="media" type="file" accept="image/*" required></label><small>Large videos are better added as YouTube links.</small></div>
+        <div id="youtubeField" hidden><label>YouTube URL<input name="youtubeUrl" type="url" placeholder="https://www.youtube.com/watch?v=..."></label></div>
+        <label>Description<textarea name="description" rows="3" maxlength="500" placeholder="Project description"></textarea></label>
+        <button class="button primary full" type="submit">Publish work ↗</button>
+        <p id="uploadStatus" class="form-status" aria-live="polite"></p>
+      </form>
+    </section>
+    <section class="panel">
+      <div class="eyebrow">LIVE PORTFOLIO</div><h2>Published items</h2>
+      <div id="adminGallery" class="admin-gallery">Loading…</div>
+    </section>
+  </div>
+</section>
+
+<section class="owner-section" data-owner-section="enquiries">
+  <div class="owner-heading"><div><div class="owner-kicker">INCOMING COLLABORATIONS</div><h1>Client <span class="owner-gradient">Enquiries.</span></h1><div class="owner-muted">Messages submitted through the website.</div></div></div>
+  <div class="owner-card"><h2>Recent enquiries</h2><div id="enquiries">Loading enquiries…</div></div>
+</section>
+
+<section class="owner-section" data-owner-section="security">
+  <div class="owner-heading"><div><div class="owner-kicker">ACCOUNT PROTECTION</div><h1>Owner <span class="owner-gradient">Security.</span></h1></div></div>
+  <div class="owner-card">
+    <h2>Security checklist</h2>
+    <p class="owner-muted">✓ Existing Appwrite owner identity check remains enabled.</p>
+    <p class="owner-muted">✓ Use Log out to end your current session.</p>
+    <p class="owner-muted">✓ Never expose an Appwrite API secret in frontend JavaScript.</p>
+    <p class="owner-muted">✓ Do not allow public write or delete access to owner collections.</p>
+    <div class="owner-actions"><button class="owner-action primary" onclick="document.getElementById('logoutBtn').click()">Log out securely ↗</button></div>
+  </div>
+</section>
+
+<footer class="owner-footer">CREATED WITH ✦ FOR <strong>SAJAN JADON</strong></footer>
 </main>
 </div>
 </div>
