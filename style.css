@@ -531,3 +531,109 @@ button:hover::before,
 @media (prefers-reduced-motion: reduce) {
   .video-login-button, button, .btn, .button { animation: none !important; }
 }
+
+/* ===== CHETAN MITTAL ULTIMATE CREATOR SIGNATURE ===== */
+
+#createdByChetan,
+.created-by-chetan,
+.created-by,
+.creator-credit,
+.site-credit,
+footer .creator,
+footer .credit {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Animated rainbow border */
+#createdByChetan::before,
+.created-by-chetan::before,
+.created-by::before,
+.creator-credit::before,
+.site-credit::before,
+footer .creator::before,
+footer .credit::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    #ff004c, #ff9d00, #fff700, #00ff8c,
+    #00eaff, #6b5bff, #ff00d4, #ff004c
+  );
+  z-index: -2;
+  animation: chetanRainbowRotate 3s linear infinite;
+}
+
+/* Neon aura */
+#createdByChetan::after,
+.created-by-chetan::after,
+.created-by::after,
+.creator-credit::after,
+.site-credit::after,
+footer .creator::after,
+footer .credit::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg, #ff00d4, #00eaff, #39ff14, #fff000, #ff00d4
+  );
+  background-size: 300% 100%;
+  filter: blur(15px);
+  opacity: .65;
+  z-index: -3;
+  animation: chetanAuraFlow 4s linear infinite,
+             chetanAuraPulse 2s ease-in-out infinite alternate;
+}
+
+/* Animated creator text */
+#createdByChetan,
+.created-by-chetan,
+.created-by,
+.creator-credit,
+.site-credit,
+footer .creator,
+footer .credit {
+  background-clip: padding-box;
+  transition: transform .35s ease, filter .35s ease;
+  animation: chetanCreatorFloat 3s ease-in-out infinite;
+}
+
+@keyframes chetanRainbowRotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes chetanAuraFlow {
+  to { background-position: 300% 0; }
+}
+
+@keyframes chetanAuraPulse {
+  from { opacity: .35; filter: blur(10px); }
+  to { opacity: .9; filter: blur(22px); }
+}
+
+@keyframes chetanCreatorFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  #createdByChetan,
+  .created-by-chetan,
+  .created-by,
+  .creator-credit,
+  .site-credit,
+  footer .creator,
+  footer .credit,
+  #createdByChetan::before,
+  .created-by-chetan::before,
+  .created-by::before,
+  .creator-credit::before,
+  .site-credit::before {
+    animation: none !important;
+  }
+}
