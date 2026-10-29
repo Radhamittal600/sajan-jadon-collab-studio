@@ -1,4 +1,7 @@
 const body=document.body;
+// V14 reliability: ensure loader can always be dismissed even if one animation block fails.
+window.addEventListener('load',()=>{const l=document.getElementById('introLoader');if(l)l.classList.add('done');body.classList.add('page-ready','site-ready');},{once:true});
+setTimeout(()=>{const l=document.getElementById('introLoader');if(l)l.classList.add('done');body.classList.add('page-ready','site-ready');},2200);
 const modeToggle=document.getElementById('modeToggle');
 const modeLabel=modeToggle.querySelector('.mode-label');
 const modeIcon=modeToggle.querySelector('.mode-icon');
@@ -14,8 +17,7 @@ if(localStorage.getItem('sajan-theme')==='light'){body.classList.add('light');mo
 const menuToggle=document.getElementById('menuToggle'),nav=document.querySelector('.topbar nav');
 menuToggle.addEventListener('click',()=>nav.classList.toggle('open'));
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
-const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));}
 const clickFlash=document.getElementById('clickFlash');
 const effectToast=document.getElementById('effectToast');
 let toastTimer;

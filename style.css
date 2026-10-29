@@ -413,3 +413,12 @@ html[data-style="violet"]{--accent-a:#a879ff;--accent-b:#58e6f4}
  .motion-tile-main{min-height:320px}
 }
 @media(prefers-reduced-motion:reduce){.motion-orbit,.lottie-like,.type-stack span{animation:none!important}#scrollStoryCanvas{display:none!important}}
+
+
+/* V14 reliability patch: photo visibility, mobile fit, and graceful reveal fallback */
+.photo-card{min-width:0;min-height:240px;isolation:isolate}
+.photo-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:1;visibility:visible;z-index:0}
+.photo-card .card-index,.photo-card .card-caption,.photo-card .card-arrow,.photo-card .shine{pointer-events:none}
+.photo-card.missing-photo img{display:none!important}
+@media(max-width:800px){.gallery{grid-template-columns:minmax(0,1fr)!important;gap:18px!important}.card-wide,.card-tall{height:auto!important;aspect-ratio:4/5;margin:0!important}.photo-card{width:100%;max-width:100%;min-width:0}.hero{grid-template-columns:minmax(0,1fr)!important}.hero-stage{width:100%;max-width:100%;min-width:0}.section-wrap{width:min(92vw,680px)}}
+@media(prefers-reduced-motion:reduce){.reveal{transition:none!important;transform:none!important}}
