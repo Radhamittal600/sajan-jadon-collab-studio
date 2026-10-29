@@ -183,4 +183,37 @@
 @media(max-width:560px){.social-public-grid{grid-template-columns:1fr}.social-public{padding:40px 14px}}
 </style>
 
+
+<section id="sajan-photo-gallery" aria-label="Photo Gallery">
+  <div class="sj-gallery-inner">
+    <p class="sj-gallery-tag">OUR GALLERY</p>
+    <h2>Our Featured Photos</h2>
+    <div class="sj-gallery-grid">
+      <figure>
+        <img src="/assets/chetan.webp" alt="Chetan Mittal" loading="lazy" decoding="async">
+        <figcaption>Chetan Mittal</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/sajan-1.webp" alt="Sajan Jadon photo 1" loading="lazy" decoding="async">
+        <figcaption>Sajan Jadon</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/sajan-2.webp" alt="Sajan Jadon photo 2" loading="lazy" decoding="async">
+        <figcaption>Featured Photo</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<style>
+#sajan-photo-gallery{padding:55px 18px;background:linear-gradient(145deg,#0b1020,#171338);color:#fff}
+.sj-gallery-inner{max-width:1100px;margin:auto;text-align:center}
+.sj-gallery-tag{color:#a99aff;letter-spacing:4px;font-weight:800}
+.sj-gallery-inner h2{font-size:clamp(28px,5vw,44px);margin:10px 0 28px}
+.sj-gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.sj-gallery-grid figure{margin:0;overflow:hidden;border:1px solid #7665c9;border-radius:20px;background:#ffffff0a;box-shadow:0 12px 35px #0005}
+.sj-gallery-grid img{display:block;width:100%;height:320px;object-fit:cover}
+.sj-gallery-grid figcaption{padding:15px;font-weight:700}
+@media(max-width:650px){.sj-gallery-grid{grid-template-columns:1fr}.sj-gallery-grid img{height:auto;max-height:420px;object-fit:contain;background:#080a13}}
+</style>
+
 </body></html>
