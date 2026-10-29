@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070711">
+<title>SAJAN JADON — Collaboration Studio</title>
+<meta name="description" content="SAJAN JADON Collaboration Studio — premium creator portfolio, photography, videos and brand collaborations.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
+<script defer src="config.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav class="nav"><a class="brand" href="#">SAJAN<span>JADON</span><i>®</i></a><div class="navlinks"><a href="#work">Work</a><a href="#about">About</a><a href="#collab">Collaborate</a></div><a class="nav-cta" href="#collab">Let's Talk <b>↗</b></a></nav>
+<header class="hero">
+  <div class="hero-glow"></div><div class="eyebrow"><span class="pulse"></span> CREATOR · VISUAL STORYTELLER · COLLABORATOR</div>
+  <h1>Make it<br><span class="gradient">unforgettable.</span></h1>
+  <p class="hero-copy">Ideas deserve a bigger stage. Discover the work, stories and collaborations of Sajan Jadon.</p>
+  <div class="hero-actions"><a class="button primary" href="#work">Explore the work <span>↘</span></a><a class="button ghost" href="#collab">Start a collaboration <span>↗</span></a></div>
+  <div class="hero-bottom"><span>INDEPENDENT CREATOR</span><span>INDIA · AVAILABLE FOR COLLABS</span><span>SCROLL TO EXPLORE ↓</span></div>
+</header>
+<section class="ticker"><div>CREATE WITH PURPOSE ✳ BUILD WITH PASSION ✳ TELL BETTER STORIES ✳ CREATE WITH PURPOSE ✳ BUILD WITH PASSION ✳</div></section>
+<section class="section work-section" id="work"><div class="section-head"><div><div class="eyebrow">01 / SELECTED WORK</div><h2>Made to <span class="gradient">stand out.</span></h2></div><p>A growing collection of moments, experiments and creative projects.</p></div>
+<div class="filters"><button class="filter active" data-filter="all">All work</button><button class="filter" data-filter="image">Photography</button><button class="filter" data-filter="video">Videos</button><button class="filter" data-filter="youtube">YouTube</button></div>
+<div id="gallery" class="gallery"><div class="empty-state"><div class="loader"></div><p>Loading the collection…</p></div></div>
+</section>
+<section class="manifesto" id="about"><div class="eyebrow">02 / THE MINDSET</div><h2>Not just content.<br><span class="gradient">A feeling.</span></h2><p>Every frame, every idea and every collaboration should leave something behind. This studio is built to showcase creativity with clarity, character and intent.</p><div class="stats"><div><strong>01</strong><span>One bold vision</span></div><div><strong>∞</strong><span>Ideas to explore</span></div><div><strong>24/7</strong><span>Creative energy</span></div></div></section>
+<section class="collab-section" id="collab"><div class="collab-card"><div><div class="eyebrow">03 / MAKE SOMETHING GREAT</div><h2>Have a project<br>in <span class="gradient">mind?</span></h2><p>Brand promotions, creator partnerships, creative campaigns and new ideas are welcome.</p><div class="contact-note">Tell us what you're building. Let's make it count.</div></div><form id="collabForm"><label>Your name<input name="name" required maxlength="100" placeholder="Name"></label><label>Email or contact<input name="contact" required maxlength="160" placeholder="How can we reach you?"></label><label>Collaboration type<select name="type"><option>Brand promotion</option><option>Creator collaboration</option><option>Video project</option><option>Other idea</option></select></label><label>Project details<textarea name="message" required maxlength="3000" rows="4" placeholder="Tell us a little about the project…"></textarea></label><button class="button primary full" type="submit">Send enquiry <span>↗</span></button><p id="formStatus" class="form-status"></p></form></div></section>
+<footer><a class="brand" href="#">SAJAN<span>JADON</span><i>®</i></a><span>Built for ideas that deserve attention.</span><a href="login.html" class="owner-link">Owner access ↗</a><span>© <span id="year"></span> SAJAN JADON</span></footer>
+</body></html>
