@@ -236,3 +236,49 @@ document.addEventListener('visibilitychange',()=>{
    window.__sajanPauseVisuals=false;
  }
 });
+
+/* V12 complete: scroll-film parallax, photo-only shine, style preset persistence */
+(()=>{
+ const root=document.documentElement;
+ const savedStyle=localStorage.getItem('sajan-style-preset');
+ if(savedStyle && ['violet','apple','aurora','crimson'].includes(savedStyle)) root.dataset.style=savedStyle;
+ let scrollFrame=0;
+ const paintScroll=()=>{
+  scrollFrame=0;const y=window.scrollY||0;
+  root.style.setProperty('--film-y',`${-y*.12}px`);
+  root.style.setProperty('--film-y2',`${y*.08}px`);
+  root.style.setProperty('--grid-y',`${y*.035}px`);
+ };
+ window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(paintScroll)},{passive:true});
+ paintScroll();
+ // Prevent photo cards from opening a large image view; only animate their own glow/shine.
+ document.querySelectorAll('.photo-card').forEach(card=>{
+  card.addEventListener('click',e=>{
+   e.preventDefault();
+   card.classList.remove('tap-neon-hit','effect-hit');void card.offsetWidth;
+   card.classList.add('tap-neon-hit','effect-hit');
+   const shine=card.querySelector('.shine');
+   if(shine){shine.style.animation='none';void shine.offsetWidth;shine.style.animation='shineSweep .95s ease-out'}
+   setTimeout(()=>card.classList.remove('tap-neon-hit','effect-hit'),1000);
+  });
+ });
+})();
+
+/* V13 scroll-linked cinematic scene progress, masking reveal and Lottie-like vector motion */
+(()=>{
+ const c=document.getElementById('scrollStoryCanvas'),ctx=c&&c.getContext('2d');
+ let w=0,h=0,dpr=1,raf=0,points=[];
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function resize(){if(!c||!ctx)return;w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,1.35);c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);points=Array.from({length:Math.min(58,Math.max(22,Math.floor(w*h/24000)))},(_,i)=>({a:Math.random()*6.28,r:30+Math.random()*Math.min(w,h)*.42,s:Math.random()*6.28,i}));}
+ function draw(t){raf=0;if(!ctx)return;ctx.clearRect(0,0,w,h);const max=Math.max(1,document.documentElement.scrollHeight-h),p=scrollY/max;const cx=w*(.5+Math.sin(p*6)*.12),cy=h*(.42+Math.cos(p*4)*.1);
+  points.forEach(q=>{const a=q.a+t*.00008+p*3.2;const spread=1+.18*Math.sin(p*18+q.s);const x=cx+Math.cos(a)*q.r*spread,y=cy+Math.sin(a*1.15)*q.r*.7;ctx.beginPath();ctx.fillStyle=q.i%3?'rgba(168,121,255,.32)':'rgba(88,230,244,.34)';ctx.shadowBlur=5;ctx.shadowColor=q.i%3?'#a879ff':'#58e6f4';ctx.arc(x,y,.65+(q.i%3)*.3,0,Math.PI*2);ctx.fill()});ctx.shadowBlur=0;
+  document.documentElement.style.setProperty('--story-progress',p.toFixed(4));
+  if(!reduced&&!document.hidden)raf=requestAnimationFrame(draw);
+ }
+ const request=()=>{if(!raf)raf=requestAnimationFrame(draw)};
+ if(c&&ctx){resize();draw(0);addEventListener('resize',()=>{resize();request()},{passive:true});addEventListener('scroll',request,{passive:true});document.addEventListener('visibilitychange',request)}
+ const nodes=document.querySelectorAll('[data-reveal],.motion-tile');
+ if('IntersectionObserver'in window){const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});nodes.forEach(n=>io.observe(n))}else nodes.forEach(n=>n.classList.add('visible'));
+ // Smooth scroll only for in-page anchors; retain native scrolling on mobile for responsiveness.
+ document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=document.querySelector(a.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:reduced?'auto':'smooth',block:'start'})}}));
+})();
