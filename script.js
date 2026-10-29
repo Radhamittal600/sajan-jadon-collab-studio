@@ -62,3 +62,39 @@ const statObserver = new IntersectionObserver(entries => {
   });
 }, {threshold: .2});
 document.querySelectorAll('.social-stat-card').forEach(card => statObserver.observe(card));
+
+/* V6: touch-friendly neon sparks for every tap/click. */
+(()=>{
+ const overlay=document.getElementById('fxOverlay');
+ const toast=document.getElementById('fxToast');
+ if(!overlay||!toast)return;
+ let toastTimer;
+ function burst(x,y,label){
+   overlay.classList.remove('fx-flash'); void overlay.offsetWidth; overlay.classList.add('fx-flash');
+   overlay.style.setProperty('--tap-x',x+'px'); overlay.style.setProperty('--tap-y',y+'px');
+   for(let i=0;i<16;i++){
+     const s=document.createElement('i');
+     const angle=(Math.PI*2*i/16)+(Math.random()-.5)*.24;
+     const distance=28+Math.random()*70;
+     s.className='neon-spark';
+     s.style.left=x+'px';s.style.top=y+'px';
+     s.style.setProperty('--dx',Math.cos(angle)*distance+'px');
+     s.style.setProperty('--dy',Math.sin(angle)*distance+'px');
+     s.style.setProperty('--delay',(Math.random()*90)+'ms');
+     overlay.appendChild(s);setTimeout(()=>s.remove(),780);
+   }
+   toast.textContent=label||'✦ NEON EFFECT';
+   toast.classList.remove('show');void toast.offsetWidth;toast.classList.add('show');
+   clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),900);
+ }
+ document.addEventListener('pointerdown',e=>{
+   const target=e.target.closest('a,button,.photo-card,.social-stat-card,.feature-list div,.creator-credit,.brand');
+   if(!target)return;
+   const label=target.classList.contains('photo-card')?'✦ PHOTO NEON SHINE':
+     target.classList.contains('mode-toggle')?'✦ THEME SHIFT':
+     target.classList.contains('social-stat-card')?'✦ SOCIAL GLOW':'✦ NEON SPARK';
+   burst(e.clientX,e.clientY,label);
+   target.classList.remove('tap-neon-hit');void target.offsetWidth;target.classList.add('tap-neon-hit');
+   setTimeout(()=>target.classList.remove('tap-neon-hit'),750);
+ },{passive:true});
+})();

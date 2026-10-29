@@ -93,3 +93,18 @@ a{color:inherit;text-decoration:none}button{font:inherit}.topbar{height:84px;pos
 @media(max-width:800px){.social-stats{padding:65px 0 25px}.stats-grid{grid-template-columns:1fr;gap:15px}.social-stat-card{min-height:210px;padding:23px}.stat-value{margin-top:22px;font-size:29px}}
 
 .social-stat-card{opacity:0;transform:translateY(18px) scale(.985)}.social-stat-card.stat-visible{opacity:1;transform:translateY(0) scale(1);transition:opacity .7s,transform .7s,border-color .35s,box-shadow .35s}
+
+/* V6 neon spark interaction system */
+.fx-overlay{position:fixed;inset:0;z-index:90;pointer-events:none;overflow:hidden}
+.fx-overlay.fx-flash:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--tap-x,50%) var(--tap-y,50%),#a879ff38,transparent 22%);animation:tapGlow .5s ease-out forwards}
+.neon-spark{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--spark-color,#7ef7ff);box-shadow:0 0 8px 2px #58e6f4,0 0 18px #a879ff;animation:sparkFly .68s cubic-bezier(.1,.7,.2,1) var(--delay,0ms) forwards}
+.neon-spark:nth-child(3n){width:3px;height:12px;border-radius:100%;background:#c4a4ff;box-shadow:0 0 12px #a879ff}
+.neon-spark:nth-child(3n + 1){background:#fff;box-shadow:0 0 10px #fff,0 0 20px #58e6f4}
+.fx-toast{position:fixed;z-index:91;left:50%;bottom:22px;transform:translate(-50%,18px) scale(.94);opacity:0;pointer-events:none;border:1px solid #a879ff8a;border-radius:100px;padding:11px 16px;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(16px);font:9px 'DM Mono',monospace;letter-spacing:.15em;color:var(--text);box-shadow:0 0 35px #8c5dff35;transition:opacity .2s,transform .2s}
+.fx-toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+.tap-neon-hit{filter:drop-shadow(0 0 12px #a879ff88)}
+.photo-card.tap-neon-hit,.social-stat-card.tap-neon-hit{box-shadow:0 0 0 1px #58e6f4,0 0 45px #a879ff60,var(--shadow)}
+.photo-card.tap-neon-hit .shine{opacity:1;animation:shineSweep .8s ease-out}
+@keyframes sparkFly{0%{opacity:0;transform:translate(0,0) scale(.4)}18%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(0)}}
+@keyframes tapGlow{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.neon-spark,.fx-overlay.fx-flash:before{animation-duration:.01ms!important}}
