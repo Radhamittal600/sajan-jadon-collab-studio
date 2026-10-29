@@ -3,9 +3,14 @@
 
   const C = window.SAJAN_CONFIG;
   const { Client, Account } = window.Appwrite || {};
-  const ready = C &&
-    C.projectId && !C.projectId.startsWith('YOUR_') &&
-    C.endpoint && !C.endpoint.includes('<REGION>');
+  const ready = !!(
+    C &&
+    typeof C.projectId === 'string' &&
+    C.projectId.trim() &&
+    !C.projectId.startsWith('YOUR_') &&
+    typeof C.endpoint === 'string' &&
+    /^https:\/\/[^<>\s]+\/v1\/?$/.test(C.endpoint.trim())
+  );
 
   let account;
   if (ready && Client && Account) {
