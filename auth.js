@@ -62,7 +62,8 @@
       react('success');
       setTimeout(() => { location.href = 'studio.html'; }, 1700);
     } catch (err) {
-      status.textContent = 'Login failed. Check your email and password.';
+      console.error('Appwrite login error:', err);
+      status.textContent = 'Login failed: ' + (err.message || 'Unknown error') + ' (Code: ' + (err.code || 'unknown') + ')';
       react('fail');
     } finally {
       if (button) button.disabled = false;
