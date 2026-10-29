@@ -637,3 +637,216 @@ footer .credit {
     animation: none !important;
   }
 }
+
+/* ===== PREMIUM ANIMATED LAMP LOGIN ===== */
+.lamp-login {
+  --lamp-color: 255,190,75;
+  background:
+    radial-gradient(ellipse at 19% 35%, rgba(var(--lamp-color),.22), transparent 34%),
+    radial-gradient(ellipse at 82% 60%, rgba(0,220,255,.16), transparent 38%),
+    #05070d !important;
+  transition: background 1s ease;
+}
+.lamp-stage {
+  isolation: isolate;
+  perspective: 900px;
+  filter: drop-shadow(0 0 22px rgba(var(--lamp-color),.16));
+}
+.lamp-halo {
+  background: radial-gradient(ellipse, rgba(var(--lamp-color),.45), rgba(var(--lamp-color),.12) 40%, transparent 72%) !important;
+  animation: lampHaloBreathe 3s ease-in-out infinite alternate,
+             lampColorCycle 12s linear infinite !important;
+  transform-origin: center;
+}
+.lamp-cone {
+  background: linear-gradient(180deg,
+    rgba(255,255,220,.45),
+    rgba(var(--lamp-color),.22) 45%,
+    rgba(0,220,255,.05), transparent) !important;
+  filter: blur(5px);
+  animation: lampConePulse 2.8s ease-in-out infinite alternate;
+}
+.lamp-head {
+  filter: drop-shadow(0 0 8px rgba(var(--lamp-color),.8))
+          drop-shadow(0 0 24px rgba(var(--lamp-color),.35));
+  animation: lampHeadGlow 3s ease-in-out infinite alternate;
+}
+.lamp-stage::after {
+  content: "";
+  position: absolute;
+  inset: 8% 0 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,.10), transparent 58%);
+  animation: lampLightSweep 5s ease-in-out infinite alternate;
+}
+.lamp-caption {
+  text-shadow: 0 0 8px #fff, 0 0 22px rgba(var(--lamp-color),.9);
+  animation: lampCaptionGlow 2.5s ease-in-out infinite alternate;
+}
+.video-login-card {
+  border: 1px solid rgba(130,220,255,.38) !important;
+  box-shadow: 0 0 35px rgba(0,220,255,.08),
+              inset 0 0 25px rgba(255,255,255,.025);
+  backdrop-filter: blur(22px);
+  animation: loginCardEntrance .9s cubic-bezier(.2,.8,.2,1) both;
+}
+.video-login-card input {
+  transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+.video-login-card input:focus {
+  border-color: #00eaff !important;
+  box-shadow: 0 0 0 3px rgba(0,234,255,.12), 0 0 22px rgba(0,234,255,.22) !important;
+  transform: translateY(-1px);
+}
+.video-neon-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(255,255,255,.95) !important;
+  background: linear-gradient(110deg, #10131d, #242b37, #10131d) !important;
+  background-size: 200% 100% !important;
+  box-shadow: 0 0 8px rgba(255,255,255,.18);
+  transition: color .3s ease, box-shadow .3s ease, border-color .3s ease !important;
+}
+.video-neon-btn::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 15%, #fff 38%,
+    #ffe65c 50%, #00ffc8 65%, transparent 85%);
+  background-size: 250% 100%;
+  transform: translateX(-120%);
+  transition: transform .65s ease;
+}
+.video-neon-btn:hover,
+.video-neon-btn:focus-visible {
+  color: #fff !important;
+  border-color: #ffe65c !important;
+  box-shadow: 0 0 10px #fff, 0 0 23px #ffe65c, 0 0 38px #00ffc8 !important;
+}
+.video-neon-btn:hover::before,
+.video-neon-btn:focus-visible::before {
+  transform: translateX(0);
+  animation: lampButtonShine 1.2s linear infinite;
+}
+.video-neon-btn:active {
+  transform: scale(.97);
+}
+@keyframes lampHaloBreathe {
+  from { opacity: .55; transform: scale(.94); }
+  to { opacity: 1; transform: scale(1.08); }
+}
+@keyframes lampColorCycle {
+  0%,100% { filter: hue-rotate(0deg); }
+  35% { filter: hue-rotate(45deg); }
+  70% { filter: hue-rotate(150deg); }
+}
+@keyframes lampConePulse {
+  from { opacity: .5; }
+  to { opacity: 1; }
+}
+@keyframes lampHeadGlow {
+  from { filter: drop-shadow(0 0 6px rgba(var(--lamp-color),.4)); }
+  to { filter: drop-shadow(0 0 18px rgba(var(--lamp-color),1)); }
+}
+@keyframes lampLightSweep {
+  from { opacity: .25; }
+  to { opacity: .8; }
+}
+@keyframes lampCaptionGlow {
+  from { opacity: .75; }
+  to { opacity: 1; }
+}
+@keyframes lampButtonShine {
+  from { background-position: 100% 0; }
+  to { background-position: -150% 0; }
+}
+@keyframes loginCardEntrance {
+  from { opacity: 0; transform: translateY(18px) scale(.985); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ===== CHETAN MITTAL: MAXIMUM CREATOR SIGNATURE EFFECT ===== */
+.chetan-creator-signature {
+  position: relative !important;
+  isolation: isolate;
+  display: inline-block;
+  border: 1px solid transparent !important;
+  border-radius: 16px;
+  padding: 14px 20px !important;
+  background:
+    linear-gradient(#080b14,#080b14) padding-box,
+    conic-gradient(from var(--chetan-angle,0deg),
+      #ff005d,#ffb000,#fff500,#00ff9d,#00eaff,#7a4dff,#ff00d4,#ff005d) border-box !important;
+  box-shadow: 0 0 12px rgba(0,234,255,.35),
+              0 0 28px rgba(255,0,212,.22),
+              inset 0 0 20px rgba(0,234,255,.08);
+  animation: chetanSignatureFloat 3s ease-in-out infinite,
+             chetanSignaturePulse 2.5s ease-in-out infinite alternate,
+             chetanSignatureHue 8s linear infinite;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.chetan-creator-signature::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  z-index: -1;
+  background: conic-gradient(from var(--chetan-angle,0deg),
+    #ff005d,#ffb000,#fff500,#00ff9d,#00eaff,#7a4dff,#ff00d4,#ff005d);
+  filter: blur(14px);
+  opacity: .72;
+  animation: chetanAuraSpin 4s linear infinite;
+}
+.chetan-creator-signature::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 20%, rgba(255,255,255,.3) 48%, transparent 65%);
+  background-size: 250% 100%;
+  animation: chetanSignatureShine 3s linear infinite;
+}
+.chetan-creator-signature:hover {
+  transform: translateY(-5px) scale(1.035);
+  box-shadow: 0 0 18px #fff, 0 0 36px #00eaff, 0 0 55px #ff00d4;
+}
+.chetan-creator-signature a,
+.chetan-creator-signature span,
+.chetan-creator-signature strong {
+  position: relative;
+  color: #fff !important;
+  text-shadow: 0 0 8px #00eaff, 0 0 18px #ff00d4;
+}
+@property --chetan-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes chetanAuraSpin {
+  to { --chetan-angle: 360deg; }
+}
+@keyframes chetanSignatureFloat {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -4px; }
+}
+@keyframes chetanSignaturePulse {
+  from { filter: brightness(.9); }
+  to { filter: brightness(1.3); }
+}
+@keyframes chetanSignatureHue {
+  to { --chetan-angle: 360deg; }
+}
+@keyframes chetanSignatureShine {
+  from { background-position: 120% 0; }
+  to { background-position: -150% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lamp-halo,.lamp-cone,.lamp-head,.lamp-caption,
+  .video-login-card,.video-neon-btn,.chetan-creator-signature,
+  .chetan-creator-signature::before,.chetan-creator-signature::after {
+    animation: none !important;
+  }
+}
