@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://YOUR-DOMAIN.example/sitemap.xml
+
+Sitemap: https://sajan-jadon-collab-studio-site.radhamittal600.workers.dev/sitemap.xml

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://YOUR-DOMAIN.example/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url>
+    <loc>https://sajan-jadon-collab-studio-site.radhamittal600.workers.dev/</loc>
+  </url>
 </urlset>
