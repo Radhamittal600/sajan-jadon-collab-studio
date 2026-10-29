@@ -1066,3 +1066,180 @@ footer .credit {
   .lamp-login .lamp-stage { min-height:270px; }
   #cuteLoginRobot { scale:.85; }
 }
+
+/* ULTRA CREATOR CREDIT — footer only */
+.footer .creator-credit-ultra {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  max-width: min(94%, 620px);
+  margin: 28px auto;
+  padding: 20px 30px;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, #080b18, #16102c 55%, #081b2a) padding-box,
+    conic-gradient(from var(--credit-angle, 0deg), #00f5ff, #a855f7, #ff2f92, #ffe45e, #00ff9d, #00f5ff) border-box;
+  box-shadow: 0 0 16px #00eaff33, 0 0 36px #a855f733, inset 0 0 22px #ffffff08;
+  animation: creditCardPulse 3s ease-in-out infinite, creditBorderSpin 7s linear infinite;
+  transition: transform .35s ease, box-shadow .35s ease;
+  cursor: pointer;
+}
+.footer .creator-credit-ultra:hover,
+.footer .creator-credit-ultra:focus-visible {
+  transform: translateY(-5px) scale(1.035);
+  box-shadow: 0 0 22px #00eaff88, 0 0 50px #c026d388, 0 0 80px #ff2f9255;
+  outline: none;
+}
+.footer .creator-credit-ultra img {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px #00f5ff, 0 0 24px #a855f7;
+  animation: creditPhotoGlow 2s ease-in-out infinite alternate;
+}
+.footer .credit-words {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+.footer .credit-words small {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #b9faff;
+  animation: creditLabelGlow 2s ease-in-out infinite alternate;
+}
+.footer .credit-name {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: clamp(23px, 5vw, 36px);
+  line-height: 1.1;
+  font-weight: 1000;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #fff, #64f8ff, #c084fc, #ff75b9, #ffe88a, #fff);
+  background-size: 300% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 8px #00eaff88);
+  animation: creditRainbow 3s linear infinite, creditNameFloat 2.5s ease-in-out infinite;
+}
+.footer .credit-name span:last-child {
+  color: #ffe88a;
+}
+.footer .credit-words em {
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 2px;
+  color: #c6cbe0;
+}
+.footer .credit-star {
+  position: relative;
+  z-index: 2;
+  color: #ffe88a;
+  font-size: 25px;
+  text-shadow: 0 0 8px #ffe45e, 0 0 20px #ff2f92;
+  animation: creditStarSpin 5s linear infinite, creditStarPulse 1.2s ease-in-out infinite alternate;
+}
+.footer .credit-orbit {
+  position: absolute;
+  z-index: 0;
+  inset: 5px;
+  border: 1px dashed #80faff55;
+  border-radius: 20px;
+  pointer-events: none;
+}
+.footer .credit-orbit-one { animation: creditOrbitSpin 12s linear infinite; }
+.footer .credit-orbit-two {
+  inset: -5px;
+  border-color: #ff7ce855;
+  animation: creditOrbitSpin 18s linear infinite reverse;
+}
+.footer .credit-spark {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  color: #fff;
+  text-shadow: 0 0 8px #00eaff, 0 0 20px #ff2f92;
+  animation: creditSparkle 1.8s ease-in-out infinite alternate;
+}
+.footer .credit-spark-one { top: -12px; left: 22%; font-size: 23px; }
+.footer .credit-spark-two { right: 18%; bottom: -12px; font-size: 27px; animation-delay: .7s; }
+
+@keyframes creditBorderSpin {
+  to { --credit-angle: 360deg; }
+}
+@property --credit-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes creditCardPulse {
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(1.15); }
+}
+@keyframes creditPhotoGlow {
+  from { box-shadow: 0 0 8px #00f5ff, 0 0 16px #a855f7; }
+  to { box-shadow: 0 0 16px #ff2f92, 0 0 30px #00ff9d; }
+}
+@keyframes creditLabelGlow {
+  from { text-shadow: 0 0 3px #00eaff55; }
+  to { text-shadow: 0 0 10px #00eaff, 0 0 18px #a855f7; }
+}
+@keyframes creditRainbow {
+  to { background-position: 300% center; }
+}
+@keyframes creditNameFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes creditStarSpin {
+  to { rotate: 360deg; }
+}
+@keyframes creditStarPulse {
+  from { scale: .8; opacity: .7; }
+  to { scale: 1.2; opacity: 1; }
+}
+@keyframes creditOrbitSpin {
+  to { rotate: 360deg; }
+}
+@keyframes creditSparkle {
+  from { transform: translateY(3px) scale(.7) rotate(-15deg); opacity: .4; }
+  to { transform: translateY(-5px) scale(1.2) rotate(20deg); opacity: 1; }
+}
+@media(max-width:480px) {
+  .footer .creator-credit-ultra {
+    gap: 10px;
+    padding: 16px 15px;
+    border-radius: 18px;
+  }
+  .footer .creator-credit-ultra img {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+  }
+  .footer .credit-words small { font-size: 8px; letter-spacing: 1.5px; }
+  .footer .credit-name { font-size: 23px; gap: 5px; }
+  .footer .credit-words em { font-size: 7px; letter-spacing: 1px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .footer .creator-credit-ultra,
+  .footer .creator-credit-ultra *,
+  .footer .creator-credit-ultra::before,
+  .footer .creator-credit-ultra::after {
+    animation-duration: 8s !important;
+  }
+}
