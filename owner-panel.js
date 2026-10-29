@@ -259,3 +259,61 @@
     if ($('socialStatsStatus')) $('socialStatsStatus').textContent = 'Statistics reset to zero.';
   });
 })();
+
+/* Shared social analytics integration */
+(() => {
+  const $ = id => document.getElementById(id);
+  const api = () => window.SajanSocialAnalytics;
+  const ids = {
+    instagramUsername: "socialUsername",
+    instagramUrl: "socialInstagramUrl",
+    youtubeUrl: "socialYoutubeUrl",
+    otherUrl: "socialOtherUrl",
+    followers: "socialFollowers",
+    views: "socialViews",
+    posts: "socialPosts",
+    label: "socialStatsLabel",
+    note: "socialStatsNote"
+  };
+
+  async function loadSharedSocial() {
+    if (!api()) return;
+    const data = await api().getData();
+    Object.entries(ids).forEach(([key, id]) => {
+      const el = $(id);
+      if (el && data[key] !== undefined) el.value = data[key];
+    });
+  }
+
+  const form = $("socialStatsForm");
+  if (form && !form.dataset.sharedHandler) {
+    form.dataset.sharedHandler = "1";
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+      const status = $("socialSaveStatus") || $("socialStatsLabel");
+      const data = {};
+      Object.entries(ids).forEach(([key, id]) => {
+        const el = $(id);
+        if (el) data[key] = el.value;
+      });
+      if (!api()) {
+        alert("Social analytics module load नहीं हुआ। पेज refresh करें।");
+        return;
+      }
+      try {
+        status && (status.textContent = "Saving...");
+        await api().save(data);
+        status && (status.textContent = "Saved successfully");
+        await api().renderPublic();
+        alert("Social आँकड़े सेव हो गए। अगर Appwrite configure है तो दूसरे डिवाइस पर भी दिखेंगे।");
+      } catch (err) {
+        status && (status.textContent = err.message);
+        alert("Save नहीं हुआ: " + err.message +
+          "\nAppwrite database, collection और document permissions जाँचें।");
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", loadSharedSocial);
+  loadSharedSocial();
+})();
