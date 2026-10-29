@@ -114,7 +114,7 @@ document.querySelectorAll('.social-stat-card').forEach(card => statObserver.obse
    dpr=Math.min(window.devicePixelRatio||1,1.6);w=window.innerWidth;h=window.innerHeight;
    canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);
    canvas.style.width=w+'px';canvas.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
-   const count=Math.min(75,Math.max(28,Math.floor(w*h/17000)));
+   const count=Math.min(42,Math.max(18,Math.floor(w*h/26000)));
    particles=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,z:.25+Math.random()*.9,r:.5+Math.random()*1.8,phase:Math.random()*6.28,speed:.12+Math.random()*.45}));
  }
  function draw(){
@@ -134,7 +134,7 @@ document.querySelectorAll('.social-stat-card').forEach(card => statObserver.obse
      ctx.beginPath();ctx.fillStyle=`rgba(${p.phase%2>1?'88,230,244':'174,137,255'},${alpha})`;ctx.shadowBlur=7*p.z;ctx.shadowColor=p.phase%2>1?'#58e6f4':'#a879ff';ctx.arc(x,y,p.r*p.z,0,Math.PI*2);ctx.fill();
    }
    ctx.shadowBlur=0;
-   if(!reduce)raf=requestAnimationFrame(draw);
+   if(!reduce&&!document.hidden)raf=requestAnimationFrame(draw);
  }
  function requestDraw(){if(!raf)raf=requestAnimationFrame(draw)}
  window.addEventListener('resize',()=>{resize();requestDraw()},{passive:true});
@@ -188,7 +188,7 @@ if('scrollRestoration' in history) history.scrollRestoration='manual'; window.ad
  function resize(){
   w=innerWidth;h=innerHeight;dpr=Math.min(devicePixelRatio||1,1.5);
   c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
-  const count=Math.min(130,Math.max(55,Math.floor(w*h/9500)));
+  const count=Math.min(72,Math.max(28,Math.floor(w*h/17000)));
   pts=Array.from({length:count},(_,i)=>({a:Math.random()*Math.PI*2,b:Math.random()*Math.PI,r:40+Math.random()*Math.min(w,h)*.42,s:Math.random()*6.28,i}));
  }
  function frame(t){
@@ -210,9 +210,29 @@ if('scrollRestoration' in history) history.scrollRestoration='manual'; window.ad
    ctx.shadowBlur=7;ctx.shadowColor=q.i%3===0?'#58e6f4':'#a879ff';ctx.arc(x,y, .55+(q.i%4)*.24,0,Math.PI*2);ctx.fill();
   }
   ctx.shadowBlur=0;
-  if(!reduced)raf=requestAnimationFrame(frame);
+  if(!reduced&&!document.hidden)raf=requestAnimationFrame(frame);
  }
  addEventListener('resize',()=>{resize();if(!raf)raf=requestAnimationFrame(frame)},{passive:true});
  addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(frame)},{passive:true});
  resize();frame(0);
 })();
+
+/* V10 stability guard: make sure intro overlay never leaves the page hidden. */
+(()=>{
+ const loader=document.getElementById('introLoader');
+ if(!loader)return;
+ const reveal=()=>{loader.classList.add('done');document.body.classList.add('site-ready')};
+ if(document.readyState==='complete')setTimeout(reveal,500);
+ else window.addEventListener('load',()=>setTimeout(reveal,500),{once:true});
+ setTimeout(reveal,1800);
+})();
+
+/* V11 performance guard: pause visual loops in background tabs and when page is hidden. */
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden){
+   // Canvas animations are intentionally lightweight; avoid background work when not visible.
+   window.__sajanPauseVisuals=true;
+ }else{
+   window.__sajanPauseVisuals=false;
+ }
+});
