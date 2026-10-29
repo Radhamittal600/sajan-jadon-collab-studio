@@ -1,6 +1,6 @@
 # SAJAN JADON Collaboration Studio — B (free-first setup)
 
-This is a premium-looking static portfolio starter with an owner login, media gallery, Appwrite storage/database integration, YouTube embeds, and collaboration enquiries. It is **not live yet**. Replace the placeholder configuration and test before publishing.
+This is an upgraded animated premium static portfolio starter with an owner login, media gallery, Appwrite storage/database integration, YouTube embeds, and collaboration enquiries. It is **not live yet**. Replace the placeholder configuration and test before publishing.
 
 ## What is free / important limits
 - Appwrite Cloud Free includes limited storage and bandwidth; currently the plan lists 2 GB storage and 5 GB bandwidth. Limits and terms can change.
@@ -80,3 +80,6 @@ If Git asks for a password, use GitHub's supported sign-in/token flow; do not pa
 - Sample design graphics are generated CSS placeholders, not Sajan's real photos.
 - This project has not been deployed or independently production-tested.
 - Test upload, login, mobile layout, permissions, and enquiry submission before sharing publicly.
+
+## Visual upgrade
+The homepage includes animated hero layers, scroll reveals, 3D hover tilt on pointer devices, button ripple/shine effects, image lightbox, sample image cards, and a “Created with care by CHETAN” credit. Sample images are illustrative external Unsplash images; replace them with your own licensed photos when ready.
