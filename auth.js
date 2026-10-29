@@ -35,7 +35,7 @@
     e.preventDefault();
 
     if (!account) {
-      status.textContent = 'Appwrite config.js is not configured yet.';
+      status.textContent = !window.Appwrite ? 'Appwrite SDK load nahi hua. Internet check karke page refresh karo.' : 'Appwrite configuration check karo.';
       react('fail');
       return;
     }
