@@ -1,3 +1,48 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#05070b"><title>Owner Login — SAJAN JADON</title><link rel="stylesheet" href="style.css"><script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script><script defer src="config.js"></script><script defer src="auth.js"></script><script defer src="login-effects.js"></script></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#05070b"><title>Owner Login — SAJAN JADON</title><link rel="stylesheet" href="style.css"><script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script><script defer src="config.js"></script><script defer src="auth.js"></script><script defer src="login-effects.js"></script>
+<style>
+/* SAJAN LAMP LOGIN AMBIENCE */
+body {
+  background: radial-gradient(ellipse at 18% 35%, rgba(255,190,75,.19), transparent 28%),
+              radial-gradient(ellipse at 80% 65%, rgba(0,220,255,.14), transparent 35%),
+              #070a12 !important;
+  color: #f4f7ff;
+}
+body::before {
+  content: "";
+  position: fixed;
+  left: 7%;
+  top: 16%;
+  width: 100px;
+  height: 125px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 18%, #fff5c6 0%, #ffc65b 9%,
+    rgba(255,174,61,.35) 30%, rgba(255,174,61,.08) 55%, transparent 72%);
+  filter: blur(8px);
+  animation: sajanLampGlow 4s ease-in-out infinite alternate;
+  z-index: 0;
+}
+body input, body button, body form, body main, body section, body .login-card,
+body .card, body .container {
+  position: relative;
+}
+body input {
+  border-color: rgba(120,220,255,.45) !important;
+  box-shadow: 0 0 12px rgba(0,220,255,.08);
+}
+body button, body [type="submit"] {
+  border: 1px solid rgba(255,255,255,.8) !important;
+  transition: .35s ease !important;
+}
+body button:hover, body [type="submit"]:hover {
+  box-shadow: 0 0 10px #fff, 0 0 22px #ffe45c, 0 0 34px #00ffc8 !important;
+  animation: sajanNeonPulse 1.3s ease-in-out infinite alternate;
+}
+@keyframes sajanLampGlow {
+  from { opacity: .65; filter: blur(10px); }
+  to { opacity: 1; filter: blur(17px); }
+}
+</style>
+
+</head>
 <body class="login-body lamp-login"><a class="brand login-brand" href="index.html">SAJAN<span>JADON</span><i>®</i></a><main class="lamp-layout"><section class="lamp-stage" aria-label="Animated color changing lamp"><div class="lamp-halo"></div><div class="lamp-cone"></div><div class="lamp-head"></div><div class="lamp-neck"></div><div class="lamp-pole"></div><div class="lamp-base"></div><div class="lamp-floor"></div><div class="lamp-caption">ANIMATED <b>LAMP LOGIN</b></div></section><section class="login-card video-login-card"><div class="eyebrow">PRIVATE AREA / OWNER ONLY</div><h1>Welcome<br><span class="gradient">back.</span></h1><p>Sign in to manage your portfolio.</p><form id="loginForm"><label>Email<input name="email" type="email" required autocomplete="username" placeholder="Owner email"></label><label>Password<input name="password" type="password" required autocomplete="current-password" placeholder="Password"></label><button class="button primary full video-neon-btn" type="submit"><span class="btn-label">LOGIN SECURELY</span><span class="btn-icon" aria-hidden="true">↗</span></button><p id="loginStatus" class="form-status"></p></form><a class="back-link" href="index.html">← Back to website</a></section></main></body></html>
