@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <meta name="google-site-verification" content="qs_HIoZoutV_D6sHfLP-9vUQLlAMGuSSjJ4oW0HQzCA" />
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080812">
@@ -147,4 +148,39 @@
 </footer>
 
 <script defer src="script.js"></script>
+<script src="social-analytics.js"></script>
+
+<section id="publicSocialStats" class="social-public" aria-label="Social media statistics">
+  <div class="social-public-inner">
+    <p class="social-public-kicker">SOCIAL IMPACT</p>
+    <h2>हमारी सोशल कम्युनिटी</h2>
+    <p data-social-stat="label">मैन्युअल रूप से अपडेट किए गए आँकड़े</p>
+    <div class="social-public-grid">
+      <article><span>Instagram Followers</span><strong data-social-stat="followers">0</strong></article>
+      <article><span>Views</span><strong data-social-stat="views">0</strong></article>
+      <article><span>Posts / Reels</span><strong data-social-stat="posts">0</strong></article>
+    </div>
+    <p data-social-stat="updated">अभी तक अपडेट नहीं किया गया</p>
+    <p data-social-stat="username">@yourusername</p>
+    <div class="social-public-links">
+      <a data-social-link="instagramUrl" hidden target="_blank" rel="noopener noreferrer">Instagram खोलें ↗</a>
+      <a data-social-link="youtubeUrl" hidden target="_blank" rel="noopener noreferrer">YouTube खोलें ↗</a>
+      <a data-social-link="otherUrl" hidden target="_blank" rel="noopener noreferrer">अन्य लिंक ↗</a>
+    </div>
+  </div>
+</section>
+<style>
+.social-public{padding:64px 18px;background:radial-gradient(ellipse at top,#25205a,#090b16 70%);color:#fff}
+.social-public-inner{max-width:1000px;margin:auto;text-align:center}
+.social-public-kicker{letter-spacing:4px;color:#9c8cff;font-weight:800}
+.social-public h2{font-size:clamp(28px,5vw,46px);margin:8px 0 18px}
+.social-public-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0}
+.social-public-grid article{padding:25px 12px;border:1px solid #7063b5;border-radius:20px;background:#ffffff0a;box-shadow:0 0 30px #5540ff18}
+.social-public-grid span,.social-public-grid strong{display:block}
+.social-public-grid strong{font-size:clamp(26px,5vw,42px);margin-top:10px;color:#b8a9ff}
+.social-public-links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:20px}
+.social-public-links a{padding:12px 18px;border:1px solid #9986ff;border-radius:30px;color:#fff;text-decoration:none}
+@media(max-width:560px){.social-public-grid{grid-template-columns:1fr}.social-public{padding:40px 14px}}
+</style>
+
 </body></html>
